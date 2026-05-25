@@ -151,8 +151,9 @@
     font-family: var(--font-body);
     font-size: 17px; line-height: 1.75;
     color: rgba(244,228,193,0.85);
-    max-width: 580px;
+    max-width: 760px;
     margin: 24px auto 40px;
+    text-wrap: balance;
   }
   .coming-soon-cta {
     display: inline-flex; align-items: center; gap: 10px;
@@ -189,6 +190,7 @@
 <body>
 
 <header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
@@ -223,7 +225,7 @@
   <section class="coming-soon">
     <h1>Coming <em>Soon</em></h1>
     <p class="coming-soon-sub">
-      Nền tảng học trực tuyến của SHEGAN đang được Thuý Vân cùng đội ngũ chuẩn bị — những khoá học về phong cách sống ý thức, phát triển bản thân và doanh nhân nữ. Sắp ra mắt.
+      Nâng tầm tư duy cùng SHeGAN Academy. Thúy Vân và đội ngũ đang chuẩn bị những bước cuối cùng cho sự ra mắt của một hệ sinh thái giáo dục toàn diện.
     </p>
     <a href="mailto:thuyvan.contact@gmail.com?subject=Đăng ký nhận thông báo E-Learning" class="coming-soon-cta">
       Nhận thông báo ra mắt
@@ -287,6 +289,7 @@
 <script>
   (function() {
     var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
     if (!hdr) return;
     var scrolled = false;
     window.addEventListener('scroll', function() {
@@ -294,6 +297,7 @@
       if (shouldBeScrolled !== scrolled) {
         scrolled = shouldBeScrolled;
         hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
       }
     }, { passive: true });
   })();

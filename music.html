@@ -89,43 +89,105 @@
     position: relative;
   }
 
-  /* Music inline YouTube audio-only player */
-  .music-card[data-yt] { cursor: pointer; }
-  .music-card[data-yt]:focus-visible {
+  /* ============ MUSIC CARDS — Spotify-style (same as home) ============ */
+  .home-section .music-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 28px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .home-section .music-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    min-height: 0 !important;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: none !important;
+  }
+  .home-section .music-card[data-yt]:focus-visible {
     outline: 2px solid var(--antique-gold);
-    outline-offset: 3px;
+    outline-offset: 6px;
+    border-radius: 12px;
   }
-  /* Bigger play/pause button so user notices it */
-  .music-card .music-now-icon {
-    width: 44px; height: 44px;
-    box-shadow: 0 6px 18px rgba(62, 46, 31, 0.28);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  .home-section .music-cover-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    margin-bottom: 18px;
+    transition: transform 0.35s ease;
   }
-  .music-card:hover .music-now-icon {
-    transform: scale(1.06);
-    box-shadow: 0 8px 22px rgba(62, 46, 31, 0.35);
+  .home-section .music-card:hover .music-cover-wrap { transform: translateY(-4px); }
+  .home-section .music-cover {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    border-radius: 12px;
   }
-  .music-card .music-now-icon svg {
-    width: 16px; height: 16px;
-    margin-left: 2px;
+  .home-section .music-play {
+    position: absolute;
+    right: 14px; bottom: 14px;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--mesh-gold);
+    color: var(--deep-brown);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 20px rgba(168, 137, 87, 0.55);
+    cursor: pointer;
+    pointer-events: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .music-card .music-now-icon .icon-pause {
-    display: none;
-    margin-left: 0;
+  .home-section .music-card:hover .music-play {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 26px rgba(168, 137, 87, 0.65);
   }
-  .music-card.playing .music-now-icon .icon-play { display: none; }
-  .music-card.playing .music-now-icon .icon-pause { display: block; }
-  .music-card .music-now {
-    font-size: 14px;
-    font-weight: 600;
-    gap: 12px;
+  .home-section .music-play svg {
+    width: 16px; height: 16px; fill: currentColor; margin-left: 2px;
   }
-  .music-card .music-now-label::before { content: 'Nghe ngay'; }
-  .music-card.playing .music-now-label::before { content: 'Đang phát'; }
-
-  /* Vinyl static by default; only spin when this card is playing */
-  .music-card .music-disc { animation: none; }
-  .music-card.playing .music-disc { animation: vinyl-spin 8s linear infinite; }
+  .home-section .music-play .icon-pause { display: none; margin-left: 0; }
+  .home-section .music-card.playing .music-play .icon-play { display: none; }
+  .home-section .music-card.playing .music-play .icon-pause { display: block; }
+  .home-section .music-card.playing .music-play {
+    transform: translateY(-4px);
+    animation: musicPlayPulse 2.2s ease-in-out infinite;
+  }
+  .home-section .music-card.playing .music-title { color: var(--royal-gold); }
+  @keyframes musicPlayPulse {
+    0%, 100% {
+      box-shadow: 0 10px 22px rgba(168, 137, 87, 0.6),
+                  0 0 0 0 rgba(168, 137, 87, 0.5);
+    }
+    50% {
+      box-shadow: 0 14px 28px rgba(168, 137, 87, 0.75),
+                  0 0 0 10px rgba(168, 137, 87, 0);
+    }
+  }
+  .home-section .music-title {
+    font-family: var(--font-heading);
+    font-size: 19px; font-weight: 500;
+    color: var(--deep-brown);
+    line-height: 1.25;
+    margin: 0 0 4px;
+    transition: color 0.3s ease;
+  }
+  .home-section .music-meta {
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 500;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 900px) {
+    .home-section .music-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
+    .home-section .music-play { width: 44px; height: 44px; right: 10px; bottom: 10px; }
+    .home-section .music-title { font-size: 16px; }
+    .home-section .music-meta { font-size: 11px; }
+  }
+  @media (max-width: 520px) {
+    .home-section .music-grid { grid-template-columns: 1fr; }
+  }
 
   /* Hide the iframe visually but keep it rendered so audio plays */
   .music-player {
@@ -174,6 +236,7 @@
 
 <!-- ============ HEADER ============ -->
 <header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
@@ -216,158 +279,80 @@
 
     <div class="music-grid">
       <div class="music-card" data-yt="EUVNz9dcaoA" role="button" tabindex="0" aria-label="Nghe bài Tiến Lên Việt Nam">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2023</span></div>
-            <h4>Tiến Lên Việt Nam</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Tiến Lên Việt Nam</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2023</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="vggFAD9AO3U" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Lưu Ly">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2022</span></div>
-            <h4>Trái Tim Lưu Ly</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-luu-ly.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-luu-ly.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Lưu Ly</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="hX4aJ3mgTn8" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yếu Đuối">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2021</span></div>
-            <h4>Trái Tim Yếu Đuối</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-duoi.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-yeu-duoi.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Yếu Đuối</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2021</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="t0EgveIEtyU" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yêu Thương">
-        <div class="music-info">
-          <div class="music-now" aria-hidden="true">
-            <span class="music-now-icon">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2025</span></div>
-            <h4>Trái Tim Yêu Thương</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-thuong.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-yeu-thuong.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Yêu Thương</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="GyrsOmvOipI" role="button" tabindex="0" aria-label="Nghe bài Bài Hát Chưa Đặt Tên Số 1">
-        <div class="music-info">
-          <div class="music-now" aria-hidden="true">
-            <span class="music-now-icon">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2025</span></div>
-            <h4>Bài Hát Chưa Đặt Tên Số 1</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Bài Hát Chưa Đặt Tên Số 1</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="O7ulohxXrnc" role="button" tabindex="0" aria-label="Nghe bài Con Sẽ Không Về">
-        <div class="music-info">
-          <div class="music-now" aria-hidden="true">
-            <span class="music-now-icon">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist"><span class="music-artist-name">Phạm Hồng Thúy Vân</span><span class="music-artist-year">2025</span></div>
-            <h4>Con Sẽ Không Về</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/con-se-khong-ve.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/con-se-khong-ve.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Con Sẽ Không Về</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
@@ -432,6 +417,7 @@
   // Sticky header shadow on scroll
   (function() {
     var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
     if (!hdr) return;
     var scrolled = false;
     window.addEventListener('scroll', function() {
@@ -439,6 +425,7 @@
       if (shouldBeScrolled !== scrolled) {
         scrolled = shouldBeScrolled;
         hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
       }
     }, { passive: true });
   })();

@@ -303,6 +303,7 @@
 <body>
 
 <header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
@@ -692,6 +693,7 @@
   // Sticky header shadow on scroll
   (function() {
     var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
     if (!hdr) return;
     var scrolled = false;
     window.addEventListener('scroll', function() {
@@ -699,6 +701,7 @@
       if (shouldBeScrolled !== scrolled) {
         scrolled = shouldBeScrolled;
         hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
       }
     }, { passive: true });
   })();

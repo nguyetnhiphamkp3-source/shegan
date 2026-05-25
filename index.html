@@ -132,8 +132,43 @@
     gap: 64px;
     align-items: center;
     background:
-      linear-gradient(90deg, rgba(15,10,7,0.82) 0%, rgba(31,22,16,0.55) 35%, rgba(31,22,16,0.2) 65%, transparent 90%),
-      url('assets/beauty/wdy-5296.webp') center center / cover no-repeat;
+      linear-gradient(90deg,
+        rgba(255, 235, 240, 0.88) 0%,
+        rgba(252, 224, 232, 0.65) 35%,
+        rgba(252, 224, 232, 0.2) 65%,
+        transparent 90%),
+      url('assets/beauty/home-hero-pink.webp') center center / cover no-repeat;
+  }
+  /* Text colors for light pink hero — rich bronze/antique-gold for contrast */
+  .hero-home .hero-banner-eyebrow {
+    background: none;
+    -webkit-background-clip: initial; background-clip: initial;
+    color: var(--antique-gold);
+  }
+  .hero-home h1 {
+    color: var(--antique-gold);
+    text-shadow: none;
+    font-size: clamp(48px, 7vw, 92px);
+  }
+  .hero-home h1 em {
+    background: linear-gradient(135deg, #876B3F 0%, #4D3B23 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .hero-home .hero-banner-desc { color: var(--antique-gold); }
+  /* Ghost CTA on light pink — switch from pearl/cream to brown so it stands out */
+  .hero-home .cta-ghost {
+    color: var(--warm-brown);
+    border-color: rgba(62, 46, 31, 0.45);
+  }
+  .hero-home .cta-ghost:hover {
+    background: rgba(62, 46, 31, 0.06);
+    border-color: var(--warm-brown);
+    color: var(--deep-brown);
+  }
+  .hero-home .cta-ghost .cta-arrow {
+    background: rgba(62, 46, 31, 0.1);
+    color: var(--warm-brown);
   }
   .hero-home::after { display: none; }
   .hero-home .hero-banner-content { max-width: none; }
@@ -144,7 +179,7 @@
     width: auto;
     /* Kéo ảnh ra sát các mép hero để không để lộ khoảng dark padding */
     margin: -80px -72px -80px 0;
-    background: url('assets/beauty/wdy-5296.webp') center top / cover no-repeat;
+    background: url('assets/beauty/home-hero-pink.webp') center top / cover no-repeat;
     position: relative;
     overflow: hidden;
     /* Mask mờ feather cạnh trái — ảnh tự fade transparent để nền dark lộ xuyên qua, mềm & blur */
@@ -161,37 +196,9 @@
       rgba(0, 0, 0, 0.85) 42%,
       #000 58%);
   }
-  /* Overlay blur nhẹ ở vùng chuyển tiếp để mép thêm mềm */
-  .hero-home-image::after {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 0; width: 45%;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
-    mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
-    pointer-events: none;
-  }
-  /* Blend-fade 3 cạnh còn lại (trên / dưới / phải) */
-  .hero-home-image::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg,
-        rgba(31, 22, 16, 0.7) 0%,
-        rgba(31, 22, 16, 0.25) 10%,
-        transparent 22%),
-      linear-gradient(0deg,
-        rgba(31, 22, 16, 0.75) 0%,
-        rgba(31, 22, 16, 0.3) 12%,
-        transparent 25%),
-      linear-gradient(270deg,
-        rgba(31, 22, 16, 0.55) 0%,
-        rgba(31, 22, 16, 0.2) 10%,
-        transparent 20%);
-    pointer-events: none;
-  }
+  /* Edge overlays removed — image shows at full quality without blur/tint */
+  .hero-home-image::after,
+  .hero-home-image::before { display: none; }
   section.home-section {
     padding: 120px 40px;
     max-width: none; margin: 0;
@@ -199,12 +206,12 @@
     background: var(--white);
   }
   section.home-section > .about-teaser,
-  section.home-section > .section-header,
-  section.home-section > .music-grid {
+  section.home-section > .section-header {
     max-width: 1320px;
     margin-left: auto;
     margin-right: auto;
   }
+  /* music-grid has its own narrower max-width — see below */
   section.home-section.cream {
     max-width: none;
     background:
@@ -212,6 +219,14 @@
       radial-gradient(at 85% 70%, rgba(215, 194, 154, 0.13), transparent 58%),
       linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(250, 243, 231, 0.92)),
       var(--cream);
+  }
+  /* "Sản phẩm nổi bật" + "Các bài báo mới nhất" — barely-there pink, nearly white */
+  section.home-section#products,
+  section.home-section#news {
+    background:
+      radial-gradient(at 18% 25%, rgba(252, 230, 235, 0.25), transparent 60%),
+      radial-gradient(at 82% 75%, rgba(247, 235, 208, 0.15), transparent 60%),
+      linear-gradient(135deg, #FEFAFB 0%, #FCF6F7 100%);
   }
   .home-section-inner {
     max-width: 1320px; margin: 0 auto;
@@ -281,43 +296,101 @@
     margin: 0 auto;
   }
 
-  /* Music inline YouTube audio-only player */
-  .music-card[data-yt] { cursor: pointer; }
-  .music-card[data-yt]:focus-visible {
+  /* ============ MUSIC SECTION — Spotify-style 3-col grid ============ */
+  .home-section .music-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 28px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  /* Reset old music-card styling — new card is plain block with cover + meta */
+  .home-section .music-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    min-height: 0 !important;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: none !important;
+  }
+  .home-section .music-card[data-yt]:focus-visible {
     outline: 2px solid var(--antique-gold);
-    outline-offset: 3px;
+    outline-offset: 6px;
+    border-radius: 12px;
   }
-  /* Bigger play/pause button so user notices it */
-  .music-card .music-now-icon {
-    width: 44px; height: 44px;
-    box-shadow: 0 6px 18px rgba(62, 46, 31, 0.28);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  .home-section .music-cover-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    margin-bottom: 18px;
+    transition: transform 0.35s ease;
+    /* No overflow:hidden here — keep play-button shadow visible. */
   }
-  .music-card:hover .music-now-icon {
-    transform: scale(1.06);
-    box-shadow: 0 8px 22px rgba(62, 46, 31, 0.35);
+  .home-section .music-card:hover .music-cover-wrap { transform: translateY(-4px); }
+  .home-section .music-cover {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    border-radius: 12px;
   }
-  .music-card .music-now-icon svg {
-    width: 16px; height: 16px;
-    margin-left: 2px;
+  /* Play button — Spotify-style: always visible, lifts on hover.
+     pointer-events: none so the card-wide click handler always fires. */
+  .home-section .music-play {
+    position: absolute;
+    right: 14px; bottom: 14px;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--mesh-gold);
+    color: var(--deep-brown);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 20px rgba(168, 137, 87, 0.55);
+    cursor: pointer;
+    pointer-events: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .music-card .music-now-icon .icon-pause {
-    display: none;
-    margin-left: 0;
+  .home-section .music-card:hover .music-play {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 26px rgba(168, 137, 87, 0.65);
   }
-  .music-card.playing .music-now-icon .icon-play { display: none; }
-  .music-card.playing .music-now-icon .icon-pause { display: block; }
-  .music-card .music-now {
-    font-size: 14px;
-    font-weight: 600;
-    gap: 12px;
+  .home-section .music-play svg {
+    width: 16px; height: 16px; fill: currentColor; margin-left: 2px;
   }
-  .music-card .music-now-label::before { content: 'Nghe ngay'; }
-  .music-card.playing .music-now-label::before { content: 'Đang phát'; }
-
-  /* Vinyl static by default; only spin when this card is playing */
-  .music-card .music-disc { animation: none; }
-  .music-card.playing .music-disc { animation: vinyl-spin 8s linear infinite; }
+  .home-section .music-play .icon-pause { display: none; margin-left: 0; }
+  /* Spotify-style "now playing" state — pulsing button + title goes gold. */
+  .home-section .music-card.playing .music-play .icon-play { display: none; }
+  .home-section .music-card.playing .music-play .icon-pause { display: block; }
+  .home-section .music-card.playing .music-play {
+    transform: translateY(-4px);
+    animation: musicPlayPulse 2.2s ease-in-out infinite;
+  }
+  .home-section .music-card.playing .music-title { color: var(--royal-gold); }
+  @keyframes musicPlayPulse {
+    0%, 100% {
+      box-shadow: 0 10px 22px rgba(168, 137, 87, 0.6),
+                  0 0 0 0 rgba(168, 137, 87, 0.5);
+    }
+    50% {
+      box-shadow: 0 14px 28px rgba(168, 137, 87, 0.75),
+                  0 0 0 10px rgba(168, 137, 87, 0);
+    }
+  }
+  .home-section .music-title {
+    font-family: var(--font-heading);
+    font-size: 19px; font-weight: 500;
+    color: var(--deep-brown);
+    line-height: 1.25;
+    margin: 0 0 4px;
+    transition: color 0.3s ease;
+  }
+  .home-section .music-meta {
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 500;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
 
   /* Hide the iframe visually but keep it rendered so audio plays */
   .music-player {
@@ -327,6 +400,16 @@
     opacity: 0;
     pointer-events: none;
     overflow: hidden;
+  }
+
+  @media (max-width: 900px) {
+    .home-section .music-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
+    .home-section .music-play { width: 44px; height: 44px; right: 10px; bottom: 10px; }
+    .home-section .music-title { font-size: 16px; }
+    .home-section .music-meta { font-size: 11px; }
+  }
+  @media (max-width: 520px) {
+    .home-section .music-grid { grid-template-columns: 1fr; }
   }
   /* News overlay cards — compact size */
   #news .news-grid {
@@ -404,29 +487,33 @@
       grid-template-columns: 1fr;
       gap: 40px;
       align-items: center;
-      /* Stronger uniform dark overlay on mobile so text contrasts on any photo region */
+      /* Light baby-pink overlay on mobile so brown text contrasts on any photo region */
       background:
-        linear-gradient(180deg, rgba(15,10,7,0.68) 0%, rgba(31,22,16,0.78) 100%),
-        url('assets/beauty/wdy-5296.webp') center top / cover no-repeat;
+        linear-gradient(180deg, rgba(255, 235, 240, 0.55) 0%, rgba(252, 224, 232, 0.85) 100%),
+        url('assets/beauty/home-hero-pink.webp') center top / cover no-repeat;
     }
-    /* Hero text — solid light + drop shadow for readability over photo */
-    .hero-banner-eyebrow { filter: drop-shadow(0 1px 8px rgba(15,10,7,0.7)); }
-    .hero-banner h1 {
-      color: #fff;
-      text-shadow: 0 2px 16px rgba(15,10,7,0.7), 0 1px 4px rgba(15,10,7,0.45);
-    }
-    /* Brighter champagne text for hero h1 em on mobile (solid color for reliable rendering) */
-    .hero-banner h1 em {
+    /* Hero text — rich bronze on light pink, no drop shadow */
+    .hero-banner-eyebrow { filter: none; }
+    .hero-home .hero-banner-eyebrow {
       background: none !important;
-      -webkit-background-clip: unset !important;
-      background-clip: unset !important;
-      -webkit-text-fill-color: #f0d49c !important;
-      color: #f0d49c !important;
-      text-shadow: 0 2px 12px rgba(15, 10, 7, 0.6);
+      -webkit-background-clip: initial !important; background-clip: initial !important;
+      color: var(--antique-gold) !important;
     }
-    .hero-banner-desc {
-      color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 8px rgba(15,10,7,0.55);
+    .hero-home h1 {
+      color: var(--antique-gold);
+      text-shadow: none;
+    }
+    .hero-home h1 em {
+      background: linear-gradient(135deg, #876B3F 0%, #4D3B23 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+      text-shadow: none;
+    }
+    .hero-home .hero-banner-desc {
+      color: var(--antique-gold);
+      text-shadow: none;
     }
     .hero-home-image {
       max-width: 100%;
@@ -480,6 +567,7 @@
 
 <!-- ============ HEADER — single row: logo+name left, menu+utils right ============ -->
 <header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
@@ -637,163 +725,85 @@
       <span class="section-num">— 03 / Âm Nhạc —</span>
       <h2 class="section-title">Các ca khúc <em>mới nhất</em></h2>
       <div class="divider-ornament"><span></span></div>
-      <p class="section-desc">Những sáng tác đã phát hành — câu chuyện âm nhạc của Thuý Vân. Bấm vào thẻ để nghe ngay trên trang.</p>
+      <p class="section-desc">Hành trình âm nhạc của Thúy Vân qua những bản phối đã phát hành.<br>Click để lắng nghe trực tuyến!</p>
     </div>
 
     <div class="music-grid">
       <div class="music-card" data-yt="vggFAD9AO3U" role="button" tabindex="0" aria-label="Nghe bài Tiến Lên Việt Nam">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2023</div>
-            <h4>Tiến Lên Việt Nam</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Tiến Lên Việt Nam</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2023</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="EUVNz9dcaoA" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Lưu Ly">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2022</div>
-            <h4>Trái Tim Lưu Ly</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-luu-ly.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-luu-ly.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Lưu Ly</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="hX4aJ3mgTn8" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yếu Đuối">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2021</div>
-            <h4>Trái Tim Yếu Đuối</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-duoi.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-yeu-duoi.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Yếu Đuối</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2021</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="t0EgveIEtyU" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yêu Thương">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2025</div>
-            <h4>Trái Tim Yêu Thương</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-thuong.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/trai-tim-yeu-thuong.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Trái Tim Yêu Thương</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="GyrsOmvOipI" role="button" tabindex="0" aria-label="Nghe bài Bài Hát Chưa Đặt Tên Số 1">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2025</div>
-            <h4>Bài Hát Chưa Đặt Tên Số 1</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Bài Hát Chưa Đặt Tên Số 1</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
       <div class="music-card" data-yt="O7ulohxXrnc" role="button" tabindex="0" aria-label="Nghe bài Con Sẽ Không Về">
-        <div class="music-info">
-          <div class="music-now">
-            <span class="music-now-icon" aria-hidden="true">
-              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-            </span>
-            <span class="music-now-label"></span>
-          </div>
-          <div>
-            <div class="music-artist">Phạm Hồng Thúy Vân · 2025</div>
-            <h4>Con Sẽ Không Về</h4>
-          </div>
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/con-se-khong-ve.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
         </div>
-        <div class="music-vinyl">
-          <div class="music-disc">
-            <div class="music-disc-image" style="background-image: url('assets/music/con-se-khong-ve.webp');"></div>
-          </div>
-          <div class="music-tonearm">
-            <div class="music-tonearm-pivot"></div>
-            <div class="music-tonearm-arm"></div>
-          </div>
-        </div>
+        <h4 class="music-title">Con Sẽ Không Về</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
     </div>
@@ -861,7 +871,7 @@
             <span class="section-num">— 04.5 / SHEGAN Combo —</span>
             <h2 class="section-title">Combo <em>tiết kiệm</em></h2>
             <div class="divider-ornament"><span></span></div>
-            <p class="section-desc">Bộ sản phẩm kết hợp — chăm sóc trọn vẹn, giá ưu đãi.</p>
+            <p class="section-desc">Bộ sản phẩm kết hợp - Giải pháp chăm sóc toàn diện với chi phí tối ưu.</p>
           </div>
 
           <div class="prod-grid">
@@ -966,6 +976,7 @@
   // Sticky header shadow on scroll
   (function() {
     var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
     if (!hdr) return;
     var scrolled = false;
     window.addEventListener('scroll', function() {
@@ -973,6 +984,7 @@
       if (shouldBeScrolled !== scrolled) {
         scrolled = shouldBeScrolled;
         hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
       }
     }, { passive: true });
   })();
