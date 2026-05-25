@@ -185,9 +185,7 @@
     .home-section .music-title { font-size: 16px; }
     .home-section .music-meta { font-size: 11px; }
   }
-  @media (max-width: 520px) {
-    .home-section .music-grid { grid-template-columns: 1fr; }
-  }
+  /* Keep 2 columns even on very narrow phones */
 
   /* Hide the iframe visually but keep it rendered so audio plays */
   .music-player {
@@ -199,20 +197,6 @@
     overflow: hidden;
   }
 
-  /* Desktop: keep "Artist · Year" inline (separator via CSS so HTML can split on mobile) */
-  .music-artist-year::before { content: " · "; }
-
-  @media (max-width: 900px) {
-    /* Mobile: artist on top, year below, left-aligned, font 2 sizes smaller */
-    .music-artist {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-    }
-    .music-artist-name, .music-artist-year { font-size: 8px !important; }
-    .music-artist-year::before { display: none; }
-  }
 
   /* Footer (3-col synced with other pages) */
   .footer-wrap { width: 100%; padding: 0; }
@@ -240,7 +224,7 @@
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
-      <span class="brand-name">Phạm Hồng Thuý Vân</span>
+      <span class="brand-name">Pham Hong Thuy Van</span>
     </a>
     <div class="header-right">
       <ul class="header-menu">

@@ -11,7 +11,11 @@
 <link rel="stylesheet" href="style.css">
 <style>
   /* ============ HEADER — GLASS CREAM ============ */
-  body { padding-top: 0; }
+  body {
+    padding-top: 0;
+    background: var(--white);
+  }
+  body::before { display: none; }
   .site-header {
     position: relative; width: 100%;
     background: transparent;
@@ -219,7 +223,7 @@
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
-      <span class="brand-name">Phạm Hồng Thuý Vân</span>
+      <span class="brand-name">Pham Hong Thuy Van</span>
     </a>
     <div class="header-right">
       <ul class="header-menu">

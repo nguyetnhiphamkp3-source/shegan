@@ -408,8 +408,9 @@
     .home-section .music-title { font-size: 16px; }
     .home-section .music-meta { font-size: 11px; }
   }
-  @media (max-width: 520px) {
-    .home-section .music-grid { grid-template-columns: 1fr; }
+  /* Keep 2 columns even on very narrow phones */
+  @media (max-width: 900px) {
+    .section-desc br.desktop-only { display: none; }
   }
   /* News overlay cards — compact size */
   #news .news-grid {
@@ -487,10 +488,11 @@
       grid-template-columns: 1fr;
       gap: 40px;
       align-items: center;
-      /* Light baby-pink overlay on mobile so brown text contrasts on any photo region */
+      /* Light baby-pink overlay on mobile so brown text contrasts on any photo region.
+         Position shifted right so the subject (Thúy Vân) stays in frame. */
       background:
         linear-gradient(180deg, rgba(255, 235, 240, 0.55) 0%, rgba(252, 224, 232, 0.85) 100%),
-        url('assets/beauty/home-hero-pink.webp') center top / cover no-repeat;
+        url('assets/beauty/home-hero-pink.webp') 78% top / cover no-repeat;
     }
     /* Hero text — rich bronze on light pink, no drop shadow */
     .hero-banner-eyebrow { filter: none; }
@@ -571,7 +573,7 @@
   <nav class="header-nav" id="siteHeader">
     <a href="index.html" class="header-brand">
       <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
-      <span class="brand-name">Phạm Hồng Thuý Vân</span>
+      <span class="brand-name">Pham Hong Thuy Van</span>
     </a>
     <div class="header-right">
       <ul class="header-menu" id="primaryMenu">
@@ -725,7 +727,7 @@
       <span class="section-num">— 03 / Âm Nhạc —</span>
       <h2 class="section-title">Các ca khúc <em>mới nhất</em></h2>
       <div class="divider-ornament"><span></span></div>
-      <p class="section-desc">Hành trình âm nhạc của Thúy Vân qua những bản phối đã phát hành.<br>Click để lắng nghe trực tuyến!</p>
+      <p class="section-desc">Hành trình âm nhạc của Thúy Vân qua những bản phối đã phát hành.<br class="desktop-only">Click để lắng nghe trực tuyến!</p>
     </div>
 
     <div class="music-grid">
