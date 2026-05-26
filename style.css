@@ -17,8 +17,8 @@
     --cream: #FAF3E7;
     --porcelain: #FFFDF8;
 
-    --warm-brown: #3E2E1F;
-    --deep-brown: #2E2014;       /* Browner — was #1F1610, looked almost black */
+    --warm-brown: #644132;       /* Terracotta brown — main text/heading tone */
+    --deep-brown: #644132;       /* Same — replaces former near-black browns */
     --midnight: #0F0A07;         /* Reserved for non-text uses (button bg, dark accents) */
 
     /* Baby pink palette — paired with champagne for rose-gold vibe */
@@ -27,20 +27,29 @@
     --rose: #F8DDDF;
     --rose-deep: #E5B8C0;
 
-    --text: #3E2E1F;          /* Brown body text — không dùng #000 đen */
-    --text-soft: #574029;
-    --text-muted: #7E6A52;
+    --text: #A0545C;          /* Warm brown body text — no pure #000 */
+    --text-soft: #B07965;     /* Lighter rust for sub-text */
+    --text-muted: #C9A18B;    /* Even lighter for captions / meta */
+    --heading: #A87B6E;       /* Rose-red — solid (non-gradient) titles */
     --white: #FFFFFF;
     --border: #E9D9BA;
     --border-soft: #F3E9D8;
 
-    /* Signature mesh gradient — iridescent champagne */
+    /* Signature mesh gradient — iridescent champagne (decorative use only) */
     --mesh-gold:
       radial-gradient(at 18% 25%, rgba(247, 235, 208, 0.86) 0%, transparent 45%),
       radial-gradient(at 82% 15%, rgba(234, 221, 190, 0.72) 0%, transparent 50%),
       radial-gradient(at 50% 85%, rgba(222, 208, 177, 0.66) 0%, transparent 55%),
       radial-gradient(at 15% 80%, rgba(215, 193, 147, 0.55) 0%, transparent 40%),
       linear-gradient(135deg, #F1E3C4 0%, #D8C092 100%);
+
+    /* Soft baby-pink mesh — luxury text gradient (paired with bg-clip: text) */
+    --mesh-rose:
+      radial-gradient(at 18% 25%, rgba(248, 215, 222, 0.9) 0%, transparent 45%),
+      radial-gradient(at 82% 15%, rgba(228, 165, 178, 0.72) 0%, transparent 50%),
+      radial-gradient(at 50% 85%, rgba(195, 125, 140, 0.6) 0%, transparent 55%),
+      radial-gradient(at 15% 80%, rgba(170, 95, 110, 0.5) 0%, transparent 40%),
+      linear-gradient(135deg, #F5C8D2 0%, #9C5366 100%);
 
     --mesh-gold-subtle:
       radial-gradient(at 15% 20%, rgba(247, 235, 208, 0.32) 0%, transparent 48%),
@@ -72,7 +81,7 @@
     font-family: var(--font-body);
     font-weight: 400;
     font-size: 16px;
-    color: var(--text);
+    color: var(--heading);
     background:
       radial-gradient(ellipse at 8% 5%, rgba(247, 235, 208, 0.25) 0%, transparent 38%),
       radial-gradient(ellipse at 92% 95%, rgba(234, 221, 190, 0.2) 0%, transparent 42%),
@@ -138,7 +147,7 @@
   }
   .topnav ul { display: flex; gap: 28px; list-style: none; }
   .topnav a {
-    color: var(--text); text-decoration: none;
+    color: var(--heading); text-decoration: none;
     font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
     font-weight: 500; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -318,7 +327,7 @@
   }
   .section-title {
     font-size: clamp(42px, 6vw, 72px);
-    color: var(--text); margin-bottom: 20px;
+    color: var(--heading); margin-bottom: 20px;
     letter-spacing: -0.02em; line-height: 1.05;
   }
   .section-title em {
@@ -459,7 +468,7 @@
   .type-sample-heading {
     font-family: var(--font-heading);
     font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.95; color: var(--text);
+    line-height: 0.95; color: var(--heading);
     margin-bottom: 16px; font-weight: 500;
     letter-spacing: -0.02em;
   }
@@ -487,7 +496,7 @@
   }
   .type-sample-body {
     font-family: var(--font-body);
-    font-size: 18px; line-height: 1.85; color: var(--text);
+    font-size: 18px; line-height: 1.85; color: var(--heading);
     max-width: 720px; font-weight: 300;
   }
   .type-sample-body .accent {
@@ -517,7 +526,7 @@
     font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--royal-gold); font-weight: 700;
   }
-  .scale-preview { font-family: var(--font-heading); color: var(--text); }
+  .scale-preview { font-family: var(--font-heading); color: var(--heading); }
   .scale-specs {
     font-size: 11px; color: var(--text-muted);
     letter-spacing: 0.08em; font-family: 'Courier New', monospace;
@@ -545,7 +554,7 @@
   }
   .weight-sample {
     font-family: var(--font-body); font-size: 40px;
-    color: var(--text); margin-bottom: 12px;
+    color: var(--heading); margin-bottom: 12px;
     transition: all 0.4s ease;
   }
   .weight-name {
@@ -757,7 +766,7 @@
     -webkit-background-clip: text; background-clip: text;
     color: transparent; font-weight: 600;
   }
-  .comp-sub-title { font-size: 26px; font-weight: 500; color: var(--text); }
+  .comp-sub-title { font-size: 26px; font-weight: 500; color: var(--heading); }
   .comp-sub-title em {
     font-style: italic; font-weight: 400;
     background: var(--mesh-gold);
@@ -783,7 +792,7 @@
     border: 1.5px solid var(--border-soft);
     background: var(--porcelain);
     font-family: var(--font-body); font-size: 14px;
-    color: var(--text); border-radius: 14px;
+    color: var(--heading); border-radius: 14px;
     transition: all 0.4s ease; outline: none;
     font-weight: 400;
   }
@@ -917,7 +926,7 @@
     font-weight: 500;
   }
   .form-a-wrap.dark .form-a-title { color: var(--ivory); }
-  .form-a-wrap.light .form-a-title { color: var(--text); }
+  .form-a-wrap.light .form-a-title { color: var(--heading); }
   .form-a-title em {
     font-style: italic; font-weight: 400;
     background: var(--mesh-gold);
@@ -951,7 +960,7 @@
   .form-a-wrap.light .float-field input,
   .form-a-wrap.light .float-field textarea,
   .form-a-wrap.light .float-field select {
-    color: var(--text);
+    color: var(--heading);
     border-bottom: 1px solid var(--border-soft);
   }
   .float-field select {
@@ -1122,7 +1131,7 @@
     background: transparent; border: none;
     padding: 14px 12px 14px 0;
     font-family: var(--font-body); font-size: 14px;
-    color: var(--text); outline: none;
+    color: var(--heading); outline: none;
     font-weight: 400;
   }
   .form-c-pill input::placeholder { color: var(--text-muted); font-weight: 400; }
@@ -1230,7 +1239,7 @@
     font-family: var(--font-heading);
     font-size: 19px; font-weight: 500;
     margin-bottom: 6px;
-    color: var(--text);
+    color: var(--heading);
   }
   .form-d-item-content label.q em {
     font-style: italic;
@@ -1252,7 +1261,7 @@
     border: 1.5px solid #D9C8A8;
     padding: 14px 18px;
     font-family: var(--font-body); font-size: 14px;
-    color: var(--text);
+    color: var(--heading);
     border-radius: 14px;
     outline: none;
     transition: all 0.3s ease;
@@ -1364,7 +1373,7 @@
     font-family: var(--font-body);
     font-size: 16px; font-weight: 600;
     line-height: 1.35; letter-spacing: -0.005em;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 14px;
     flex: 1;
   }
@@ -1417,7 +1426,7 @@
     font-family: var(--font-body);
     font-size: 22px; font-weight: 700;
     line-height: 1.3; letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 12px;
   }
   .course-a-card h4 em { font-style: normal; color: inherit; }
@@ -1563,7 +1572,7 @@
     font-family: var(--font-body);
     font-size: 24px; font-weight: 500;
     line-height: 1.4;
-    color: var(--text);
+    color: var(--heading);
     letter-spacing: -0.01em;
     margin-bottom: 18px;
   }
@@ -1579,7 +1588,7 @@
     font-family: var(--font-body);
     font-size: 16px; font-weight: 700;
     letter-spacing: -0.005em;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 4px;
   }
   .testi-person-role {
@@ -1688,7 +1697,7 @@
     font-size: 20px; font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.3;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 10px;
   }
   .event-info p {
@@ -1928,7 +1937,7 @@
     font-family: var(--font-body);
     font-size: 19px; font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--heading);
     line-height: 1.3;
     margin-bottom: 16px;
   }
@@ -1943,7 +1952,7 @@
     font-family: var(--font-body);
     font-size: 26px; font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--text);
+    color: var(--heading);
   }
   .price-c-value .unit {
     font-family: var(--font-body);
@@ -2098,7 +2107,7 @@
     color: var(--royal-gold); margin-bottom: 8px;
     font-family: var(--font-body); font-weight: 700;
   }
-  .icon-spec p { font-size: 13px; color: var(--text); font-weight: 500; }
+  .icon-spec p { font-size: 13px; color: var(--heading); font-weight: 500; }
 
   /* ============ 8. IMAGERY ============ */
   .img-grid {
@@ -2199,7 +2208,7 @@
   }
   .voice-card h4 {
     font-size: 36px; margin-bottom: 6px;
-    font-weight: 500; color: var(--text);
+    font-weight: 500; color: var(--heading);
     position: relative; z-index: 1;
   }
   .voice-card .italic {
@@ -2271,7 +2280,7 @@
     color: transparent; font-weight: 600;
   }
   .bg-group-title {
-    font-size: 26px; font-weight: 500; color: var(--text);
+    font-size: 26px; font-weight: 500; color: var(--heading);
   }
   .bg-grid {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
@@ -2317,7 +2326,7 @@
   }
   .bg-item h4 {
     font-size: 22px; font-weight: 500;
-    margin-bottom: 8px; color: var(--text);
+    margin-bottom: 8px; color: var(--heading);
   }
   .bg-item > .bg-info > p {
     font-size: 14px; color: var(--text-soft);
@@ -2763,7 +2772,7 @@
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.01em;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -2882,7 +2891,7 @@
     font-size: 17px; font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.35;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 6px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -2938,7 +2947,7 @@
     font-family: var(--font-heading);
     font-size: 19px;
     font-weight: 500;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 4px;
     line-height: 1.2;
   }
@@ -3069,7 +3078,7 @@
     font-size: 40px;
     line-height: 1.1;
     font-weight: 400;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 24px;
     letter-spacing: -0.01em;
   }
@@ -3165,7 +3174,7 @@
     font-family: var(--font-heading);
     font-size: 18px;
     font-weight: 500;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 6px;
     line-height: 1.3;
   }
@@ -3271,7 +3280,7 @@
     font-family: var(--font-heading);
     font-style: italic;
     font-size: 16px;
-    color: var(--text);
+    color: var(--heading);
     text-decoration: none;
   }
   .ext-icon-inline::after {
@@ -3324,7 +3333,7 @@
     font-size: 18px;
     line-height: 1.3;
     font-weight: 500;
-    color: var(--text);
+    color: var(--heading);
     margin-bottom: 18px;
   }
   .contact-block.dark h4 { color: var(--pearl); }
