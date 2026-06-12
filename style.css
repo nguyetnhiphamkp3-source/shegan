@@ -331,7 +331,7 @@
     letter-spacing: -0.02em; line-height: 1.05;
   }
   .section-title em {
-    font-style: normal; font-weight: 400;
+    font-style: normal; font-weight: 500;
     color: var(--heading);
   }
   .section-title .outlined {
@@ -381,7 +381,7 @@
     background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.05));
   }
   .swatch-info { padding: 24px; background: var(--white); }
-  .swatch-info h4 { font-size: 18px; margin-bottom: 8px; font-weight: 600; }
+  .swatch-info h4 { font-size: 18px; margin-bottom: 8px; font-weight: 500; }
   .swatch-info .hex {
     font-family: 'Courier New', monospace; font-size: 13px;
     color: var(--royal-gold); letter-spacing: 0.05em; margin-bottom: 4px;
@@ -429,7 +429,7 @@
     box-shadow: var(--shadow-sm);
   }
   .usage-item { position: relative; }
-  .usage-item h4 { font-size: 18px; margin-bottom: 12px; color: var(--warm-brown); font-weight: 600; }
+  .usage-item h4 { font-size: 18px; margin-bottom: 12px; color: var(--warm-brown); font-weight: 500; }
   .usage-item p { font-size: 14px; color: var(--text-soft); line-height: 1.7; }
   .usage-percent {
     font-family: var(--font-body);
@@ -736,7 +736,7 @@
   }
   .btn-spec-card h4 {
     font-size: 18px; margin-bottom: 12px;
-    color: var(--warm-brown); font-weight: 600;
+    color: var(--warm-brown); font-weight: 500;
   }
   .btn-spec-card h4 em {
     font-style: italic; font-weight: 400;
@@ -1421,7 +1421,7 @@
   .course-a-meta .course-a-new { color: var(--text-muted); }
   .course-a-card h4 {
     font-family: var(--font-body);
-    font-size: 22px; font-weight: 700;
+    font-size: 22px; font-weight: 500;
     line-height: 1.3; letter-spacing: -0.01em;
     color: var(--heading);
     margin-bottom: 12px;
@@ -1691,7 +1691,7 @@
   }
   .event-info h4 {
     font-family: var(--font-body);
-    font-size: 20px; font-weight: 700;
+    font-size: 20px; font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1.3;
     color: var(--heading);
@@ -2151,7 +2151,7 @@
     content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
     width: 3px; background: var(--mesh-gold); border-radius: 3px;
   }
-  .img-rule h4 { font-size: 18px; margin-bottom: 10px; color: var(--warm-brown); font-weight: 600; }
+  .img-rule h4 { font-size: 18px; margin-bottom: 10px; color: var(--warm-brown); font-weight: 500; }
   .img-rule p { font-size: 14px; color: var(--text-soft); line-height: 1.7; }
   .img-rule .tag {
     display: inline-block; margin-bottom: 10px;
@@ -2722,7 +2722,7 @@
     font-family: var(--font-body);
     font-size: 18px;
     line-height: 1.35;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.005em;
     color: var(--pearl);
     margin-bottom: 14px;
@@ -2766,7 +2766,7 @@
   .news-plain-card h4 {
     font-family: var(--font-body);
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.3;
     letter-spacing: -0.01em;
     color: var(--heading);
@@ -2885,7 +2885,7 @@
   }
   .video-card h4 {
     font-family: var(--font-body);
-    font-size: 17px; font-weight: 700;
+    font-size: 17px; font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1.35;
     color: var(--heading);
@@ -3074,7 +3074,7 @@
     font-family: var(--font-heading);
     font-size: 40px;
     line-height: 1.1;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--heading);
     margin-bottom: 24px;
     letter-spacing: -0.01em;
@@ -3411,7 +3411,7 @@
     font-family: var(--font-heading);
     font-style: normal;
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 500;
     background: var(--mesh-gold);
     -webkit-background-clip: text; background-clip: text;
     color: transparent;
@@ -3781,6 +3781,14 @@
     .prod-section-head,
     .section-header {
       margin-bottom: 30px !important;
+    }
+
+    /* ---- Mobile buttons: 14px + no icons ---- */
+    .btn-primary, .btn-outline, .btn-ghost,
+    .cta-primary, .cta-ghost,
+    .form-a-btn, .form-c-btn, .form-d-submit,
+    .price-btn, .job-apply, .ext-link {
+      font-size: 14px !important;
     }
   }
 
