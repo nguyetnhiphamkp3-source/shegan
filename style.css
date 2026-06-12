@@ -332,10 +332,7 @@
   }
   .section-title em {
     font-style: normal; font-weight: 400;
-    background: var(--mesh-gold);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--heading);
   }
   .section-title .outlined {
     color: transparent;
@@ -3082,7 +3079,7 @@
     margin-bottom: 24px;
     letter-spacing: -0.01em;
   }
-  .ti-content h3 em { font-style: normal; color: var(--antique-gold); }
+  .ti-content h3 em { font-style: normal; color: var(--heading); }
   .ti-content p {
     font-family: var(--font-body);
     font-size: 15px;

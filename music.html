@@ -182,8 +182,8 @@
   @media (max-width: 900px) {
     .home-section .music-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
     .home-section .music-play { width: 52px; height: 52px; right: 12px; bottom: 12px; }
-    .home-section .music-title { font-size: 16px; }
-    .home-section .music-meta { font-size: 11px; }
+    .home-section .music-title { font-size: 15px; }
+    .home-section .music-meta { font-size: 13px; font-weight: 600; }
   }
   /* Keep 2 columns even on very narrow phones */
 
@@ -258,10 +258,23 @@
       <span class="section-num">— 01 / Âm Nhạc —</span>
       <h2 class="section-title">Các ca khúc <em>mới nhất</em></h2>
       <div class="divider-ornament"><span></span></div>
-      <p class="section-desc">Những sáng tác đã phát hành — câu chuyện âm nhạc của Thuý Vân. Bấm vào thẻ để nghe ngay trên trang.</p>
+      <p class="section-desc">Hành trình âm nhạc của Thúy Vân qua những bản phối đã phát hành. Click để lắng nghe trực tuyến!</p>
     </div>
 
     <div class="music-grid">
+      <div class="music-card" data-yt="gtoiMOfbnVk" role="button" tabindex="0" aria-label="Nghe bài Em Vẫn Tin Đó Là Anh">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/em-van-tin-do-la-anh.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Em Vẫn Tin Đó Là Anh</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2026</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
       <div class="music-card" data-yt="EUVNz9dcaoA" role="button" tabindex="0" aria-label="Nghe bài Tiến Lên Việt Nam">
         <div class="music-cover-wrap">
           <div class="music-cover" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
@@ -270,8 +283,21 @@
             <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
           </button>
         </div>
-        <h4 class="music-title">Tiến Lên Việt Nam</h4>
-        <p class="music-meta">Phạm Hồng Thúy Vân · 2023</p>
+        <h4 class="music-title">Tiến Lên Việt Nam!</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="GyrsOmvOipI" role="button" tabindex="0" aria-label="Nghe bài Bài Hát Chưa Đặt Tên Số 1">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Bài Hát Chưa Đặt Tên Số 1</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2024</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
@@ -297,7 +323,7 @@
           </button>
         </div>
         <h4 class="music-title">Trái Tim Yếu Đuối</h4>
-        <p class="music-meta">Phạm Hồng Thúy Vân · 2021</p>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
@@ -310,20 +336,7 @@
           </button>
         </div>
         <h4 class="music-title">Trái Tim Yêu Thương</h4>
-        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
-        <div class="music-player" aria-hidden="true"></div>
-      </div>
-
-      <div class="music-card" data-yt="GyrsOmvOipI" role="button" tabindex="0" aria-label="Nghe bài Bài Hát Chưa Đặt Tên Số 1">
-        <div class="music-cover-wrap">
-          <div class="music-cover" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
-          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
-            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </button>
-        </div>
-        <h4 class="music-title">Bài Hát Chưa Đặt Tên Số 1</h4>
-        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
@@ -336,7 +349,20 @@
           </button>
         </div>
         <h4 class="music-title">Con Sẽ Không Về</h4>
-        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2021</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="JGPESk9IoUg" role="button" tabindex="0" aria-label="Nghe bài My Vietnam">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/my-vietnam.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">My Vietnam</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2015</p>
         <div class="music-player" aria-hidden="true"></div>
       </div>
 
@@ -359,11 +385,11 @@
         <div class="footer-col-title">Pháp nhân</div>
         <div class="footer-company">
           <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
-          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
         </div>
         <div class="footer-company">
           <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
-          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
         </div>
       </div>
 
