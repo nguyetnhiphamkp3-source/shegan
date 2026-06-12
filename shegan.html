@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHeGAN — Mỹ phẩm thuần chay & chữa lành | Phạm Hồng Thúy Vân</title>
+<meta name="description" content="SHeGAN — Mỹ phẩm thuần chay & chữa lành chiết xuất muối biển xanh. Bộ sưu tập 6 sản phẩm chăm sóc da, môi và cơ thể.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============ HEADER — GLASS CREAM (carousel section is light) ============ */
+  body {
+    padding-top: 0;
+    background: #FFFFFF;
+  }
+  body::before { display: none; }
+  .site-header {
+    position: relative;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-brown);
+    white-space: nowrap;
+  }
+  .brand-logo { height: 22px; width: auto; display: block; }
+  .header-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(253, 249, 242, 0.92);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(236, 217, 184, 0.5);
+    transition: box-shadow 0.3s ease;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    gap: 24px;
+  }
+  .header-nav.scrolled { box-shadow: 0 4px 20px rgba(139, 111, 63, 0.1); }
+  .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .header-right { display: flex; align-items: center; gap: 32px; }
+  .header-menu { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+  .header-menu a {
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 700;
+    color: var(--text-soft); text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 4px 0; position: relative;
+    transition: color 0.3s ease;
+  }
+  .header-menu a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--mesh-gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .header-menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .header-menu a.active { color: var(--antique-gold); }
+  .header-menu a.active::after { transform: scaleX(1); }
+  .header-utils { display: flex; align-items: center; gap: 8px; }
+  .header-icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--warm-brown);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .header-icon-btn:hover {
+    background: var(--mesh-gold-subtle);
+    border-color: var(--border); color: var(--antique-gold);
+  }
+  .header-icon-btn svg { width: 16px; height: 16px; }
+
+  main { padding-top: 0; }
+
+  /* ============ PRODUCTS CAROUSEL ============ */
+  .prod-section {
+    padding: 140px 0 120px;
+    background:
+      radial-gradient(at 15% 30%, rgba(244, 228, 193, 0.3), transparent 55%),
+      radial-gradient(at 85% 70%, rgba(215, 194, 154, 0.22), transparent 55%);
+  }
+  .prod-section-head {
+    text-align: center;
+    max-width: 880px;
+    margin: 0 auto 56px;
+    padding: 0 40px;
+  }
+  .prod-section-head .section-num {
+    display: inline-block; margin-bottom: 12px;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--antique-gold);
+  }
+  .prod-section-head h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--heading);
+    font-weight: 500;
+    margin: 0;
+  }
+  .prod-section-head h2 em {
+    font-style: italic; font-weight: 400;
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .prod-section-head p {
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--antique-gold);
+    margin: 18px auto 0;
+    text-wrap: balance;
+  }
+
+  .prod-carousel-wrap {
+    position: relative;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+  .prod-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 8px 4px 24px;
+    scrollbar-width: none;
+  }
+  .prod-carousel::-webkit-scrollbar { display: none; }
+  .prod-card {
+    flex: 0 0 calc((100% - 72px) / 4);
+    scroll-snap-align: start;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s ease;
+  }
+  .prod-card:hover { transform: translateY(-6px); }
+  .prod-card-img {
+    aspect-ratio: 1;
+    border-radius: 20px;
+    background: var(--porcelain);
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(62, 46, 31, 0.08);
+    transition: box-shadow 0.4s ease;
+  }
+  .prod-card:hover .prod-card-img { box-shadow: 0 12px 28px rgba(62, 46, 31, 0.18); }
+  .prod-card-cat {
+    font-family: var(--font-body);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--antique-gold);
+    margin-bottom: 8px;
+  }
+  .prod-card-name {
+    font-family: var(--font-body);
+    font-size: 15px; font-weight: 600;
+    line-height: 1.4; letter-spacing: -0.005em;
+    color: var(--heading);
+    margin: 0 0 12px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .prod-card-price {
+    font-family: var(--font-heading);
+    font-size: 18px; font-weight: 600;
+    color: var(--warm-brown);
+    margin-bottom: 14px;
+  }
+  .prod-card-price em {
+    font-style: normal;
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  /* Bỏ hiển thị giá sản phẩm — cả desktop + mobile */
+  .prod-card-price { display: none !important; }
+  .prod-card-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font-body);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--deep-brown);
+    background: var(--btn-gradient);
+    padding: 13px 20px;
+    border-radius: 100px;
+    margin-top: 4px;
+    width: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .prod-card-cta svg { width: 12px; height: 12px; color: var(--deep-brown); }
+  .prod-card:hover .prod-card-cta {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(201, 168, 118, 0.35);
+    filter: brightness(1.04);
+  }
+
+  /* Carousel arrows */
+  .prod-carousel-nav {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(253, 249, 242, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    color: var(--warm-brown);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.25s ease;
+    z-index: 5;
+    box-shadow: 0 8px 22px rgba(62, 46, 31, 0.18);
+  }
+  .prod-carousel-nav:hover {
+    background: var(--btn-gradient);
+    color: var(--deep-brown);
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.06);
+  }
+  .prod-carousel-nav:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: translateY(-50%);
+  }
+  .prod-carousel-nav.prev { left: 8px; }
+  .prod-carousel-nav.next { right: 8px; }
+  .prod-carousel-nav svg { width: 18px; height: 18px; }
+
+  /* Static card variant — no link yet */
+  .prod-card--static { cursor: default; }
+  .prod-card--static:hover { transform: none; }
+  .prod-card--static:hover .prod-card-img { box-shadow: 0 6px 18px rgba(62, 46, 31, 0.08); }
+  .prod-card--static .prod-card-cta { display: none !important; }
+  .prod-card--static .prod-card-name { margin-bottom: 4px; }
+
+  /* Section divider for stacked product groups */
+  .prod-section .prod-section-head + .prod-section-head,
+  .prod-section .prod-carousel-wrap + .prod-section-head {
+    margin-top: 96px;
+  }
+
+  .footer-wrap { width: 100%; padding: 0; }
+  .footer-wrap .site-footer { border-radius: 0; }
+  .footer-top.footer-top-3col { grid-template-columns: 1.4fr 1fr 1fr; gap: 64px; }
+
+  @media (max-width: 1100px) {
+    .prod-card { flex: 0 0 calc((100% - 48px) / 3); }
+  }
+  @media (max-width: 900px) {
+    .header-nav { padding: 10px 20px; gap: 12px; flex-wrap: wrap; }
+    .header-right { gap: 16px; }
+    .header-menu { gap: 16px; flex-wrap: wrap; }
+    .header-menu a { font-size: 13px; font-weight: 700; }
+    .prod-section { padding: 110px 0 80px; }
+    .prod-section-head { padding: 0 24px; margin-bottom: 36px; }
+    .prod-carousel-wrap { padding: 0 16px; }
+    /* Mobile: switch from horizontal carousel to 2-column grid */
+    .prod-carousel {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      overflow: visible !important;
+      scroll-snap-type: none;
+      padding: 4px;
+    }
+    .prod-card {
+      flex: none !important;
+      width: auto;
+    }
+    .prod-carousel-nav { display: none !important; }
+    /* Bỏ hiệu ứng hover trên mobile */
+    .prod-card:hover { transform: none !important; }
+    .prod-card:hover .prod-card-img {
+      box-shadow: 0 6px 18px rgba(62, 46, 31, 0.08) !important;
+    }
+    .prod-card:hover .prod-card-cta {
+      transform: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+    .footer-top.footer-top-3col { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
+  <nav class="header-nav" id="siteHeader">
+    <a href="index.html" class="header-brand">
+      <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
+      <span class="brand-name">Pham Hong Thuy Van</span>
+    </a>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li><a href="about.html">Về Thuý Vân</a></li>
+        <li class="has-dropdown">
+          <a href="music.html" class="active">Sản Phẩm
+            <svg class="dropdown-caret" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M6 8 0 0h12z"/></svg>
+          </a>
+          <ul class="header-dropdown">
+            <li><a href="music.html">Âm Nhạc</a></li>
+            <li><a href="shegan.html" class="active">SHeGAN</a></li>
+            <li><a href="elearning.html">E-Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">Tin Tức</a></li>
+        <li><a href="careers.html">Việc Làm</a></li>
+      </ul>
+    </div>
+      <button class="header-hamburger" type="button" aria-label="Mở menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="prod-section" id="products">
+    <div class="prod-section-head">
+      <h2>Mỹ phẩm <em>thuần chay</em><br>&amp; chữa lành</h2>
+    </div>
+
+    <div class="prod-carousel-wrap">
+      <button class="prod-carousel-nav prev" id="carouselPrev" type="button" aria-label="Sản phẩm trước">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="prod-carousel-nav next" id="carouselNext" type="button" aria-label="Sản phẩm tiếp theo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="prod-carousel" id="prodCarousel">
+
+        <a href="https://shegan.vn/products/serum-duong-hong-ngua-kho-mo-tham-moi-dau-tay-mem-moi-hong-moi-tu-nhien-cang-mong-khong-chua-chi" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-lip-serum.webp');"></div>
+          <div class="prod-card-cat">Lip Serum · 6g</div>
+          <h3 class="prod-card-name">Serum Dưỡng Hồng Môi Dâu Tây</h3>
+          <div class="prod-card-price"><em>288.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a href="https://shegan.vn/products/serum-khu-mui-ngua-tham-nach-chan-shegan-br-shegan-armpit-and-foot-serum-9-ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-deodorant.webp');"></div>
+          <div class="prod-card-cat">Deodorant Serum · 9ml</div>
+          <h3 class="prod-card-name">Serum Khử Mùi, Ngừa Thâm Nách &amp; Chân</h3>
+          <div class="prod-card-price"><em>238.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a href="https://shegan.vn/products/dung-dich-ve-sinh-muoi-bien-xanh-shegan-br-blue-sea-salt-intimate-cleansing-foam-100ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-intimate-wash.webp');"></div>
+          <div class="prod-card-cat">Intimate Wash · 100ml</div>
+          <h3 class="prod-card-name">Dung Dịch Vệ Sinh Muối Biển Xanh</h3>
+          <div class="prod-card-price"><em>238.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a href="https://shegan.vn/products/tay-da-chet-co-the-muoi-bien-xanh-br-blue-sea-salt-body-scrub-140ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-body-scrub.webp');"></div>
+          <div class="prod-card-cat">Body Scrub · 140ml</div>
+          <h3 class="prod-card-name">Tẩy Da Chết Muối Biển Xanh</h3>
+          <div class="prod-card-price"><em>438.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a href="https://shegan.vn/products/sua-rua-mat-thuan-chay-chiet-xuat-muoi-bien-xanh-100ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-cleansing-foam.webp');"></div>
+          <div class="prod-card-cat">Cleansing Foam · 100ml</div>
+          <h3 class="prod-card-name">Sữa Rửa Mặt Muối Biển Xanh</h3>
+          <div class="prod-card-price"><em>338.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a href="https://shegan.vn/products/nuoc-tay-trang-muoi-bien-xanh-br-blue-sea-salt-micellar-water-150ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/main-micellar-water.webp');"></div>
+          <div class="prod-card-cat">Micellar Water · 150ml</div>
+          <h3 class="prod-card-name">Nước Tẩy Trang Muối Biển Xanh</h3>
+          <div class="prod-card-price"><em>338.000₫</em></div>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ============ COMBO ============ -->
+    <div class="prod-section-head">
+      <h2>Combo <em>tiết kiệm</em></h2>
+      <p>Bộ kết hợp ưu đãi cho hành trình chăm sóc trọn vẹn</p>
+    </div>
+
+    <div class="prod-carousel-wrap">
+      <button class="prod-carousel-nav prev" type="button" aria-label="Combo trước">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="prod-carousel-nav next" type="button" aria-label="Combo tiếp theo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="prod-carousel">
+        <a href="https://shegan.vn/products/combo-dac-biet-shegan-sua-rua-mat-nuoc-tay-trang-tay-da-chet-dung-dich-ve-sinh-muoi-bien-xanh-serum-khu-mui-bong-tay-trang-shegan" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-5-full-set.webp');"></div>
+          <div class="prod-card-cat">Combo · 5 sản phẩm</div>
+          <h3 class="prod-card-name">Trọn Bộ Chăm Sóc Toàn Diện</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/sua-rua-mat-nuoc-tay-trang-tay-da-chet-dung-dich-ve-sinh-muoi-bien-xanh" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-4-skincare-vesinh.webp');"></div>
+          <div class="prod-card-cat">Combo · 4 sản phẩm</div>
+          <h3 class="prod-card-name">Tẩy Trang + Sữa Rửa Mặt + Vệ Sinh + Tẩy Da Chết</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/mua-3-tang-1-web-combo-3-chai-dung-dich-ve-sinh-muoi-bien-xanh-100ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-3-dung-dich-ve-sinh.webp');"></div>
+          <div class="prod-card-cat">Combo · 3 chai</div>
+          <h3 class="prod-card-name">Combo 3 Dung Dịch Vệ Sinh</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-sua-rua-mat-nuoc-tay-trang-tay-da-chet-muoi-bien-xanh" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-3-skincare.webp');"></div>
+          <div class="prod-card-cat">Combo · 3 skincare</div>
+          <h3 class="prod-card-name">Sữa Rửa Mặt + Tẩy Trang + Tẩy Da Chết</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/mua-3-tang-1-web-combo-3-chai-serum-khu-mui-ngua-tham-nach-va-chan-9ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-3-deodorant.webp');"></div>
+          <div class="prod-card-cat">Combo · 3 chai</div>
+          <h3 class="prod-card-name">Combo 3 Serum Khử Mùi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-3-1-web-serum-duong-hong-ngua-kho-mo-tham-moi-dau-tay-mem-moi-hong-moi-tu-nhien-cang-mong-khong-chua-chi" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-3-lip-serum.webp');"></div>
+          <div class="prod-card-cat">Combo · 3 hộp</div>
+          <h3 class="prod-card-name">Combo 3 Serum Dưỡng Hồng Môi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-2-chai-dung-dich-ve-sinh-muoi-bien-xanh-100ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-2-dung-dich-ve-sinh.webp');"></div>
+          <div class="prod-card-cat">Combo · 2 chai</div>
+          <h3 class="prod-card-name">Combo 2 Dung Dịch Vệ Sinh</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-2-chai-serum-khu-mui-ngua-tham-nach-va-chan-9-ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-2-deodorant.webp');"></div>
+          <div class="prod-card-cat">Combo · 2 chai</div>
+          <h3 class="prod-card-name">Combo 2 Serum Khử Mùi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-2-tuyp-serum-duong-hong-ngua-kho-mo-tham-moi-dau-tay-mem-moi-hong-moi-tu-nhien-cang-mong-khong-chua-chi" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-2-lip-serum.webp');"></div>
+          <div class="prod-card-cat">Combo · 2 hộp</div>
+          <h3 class="prod-card-name">Combo 2 Serum Dưỡng Hồng Môi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-sua-rua-mat-nuoc-tay-trang-muoi-bien-xanh-br-combo-blue-sea-salt-cleansing-foam-micellar-water" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-srm-tt.webp');"></div>
+          <div class="prod-card-cat">Combo Mix · 2 sản phẩm</div>
+          <h3 class="prod-card-name">Sữa Rửa Mặt + Nước Tẩy Trang</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-dung-dich-ve-sinh-muoi-bien-xanh-serum-khu-mui-ngua-tham-nach-va-chan" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-vesinh-khumui.webp');"></div>
+          <div class="prod-card-cat">Combo Mix · 2 sản phẩm</div>
+          <h3 class="prod-card-name">Dung Dịch Vệ Sinh + Serum Khử Mùi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-dung-dich-ve-sinh-tay-te-bao-chet-muoi-bien-xanh" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-vesinh-tdc.webp');"></div>
+          <div class="prod-card-cat">Combo Mix · 2 sản phẩm</div>
+          <h3 class="prod-card-name">Dung Dịch Vệ Sinh + Tẩy Da Chết</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/combo-tay-da-chet-serum-khu-mui-ngua-tham" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/combos/combo-tdc-khumui.webp');"></div>
+          <div class="prod-card-cat">Combo Mix · 2 sản phẩm</div>
+          <h3 class="prod-card-name">Tẩy Da Chết + Serum Khử Mùi</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ ACCESSORIES ============ -->
+    <div class="prod-section-head">
+      <h2>Phụ kiện <em>cao cấp</em></h2>
+      <p>Quà tặng tinh tế đồng hành cùng SHEGAN</p>
+    </div>
+
+    <div class="prod-carousel-wrap">
+      <button class="prod-carousel-nav prev" type="button" aria-label="Phụ kiện trước">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="prod-carousel-nav next" type="button" aria-label="Phụ kiện tiếp theo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="prod-carousel">
+                <a href="https://shegan.vn/products/tui-day-cao-cap-shegan-tien-loi-cung-cap-co-dem-day-giu-form-tui" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/tui-day.webp');"></div>
+          <div class="prod-card-cat">Premium · Túi đay</div>
+          <h3 class="prod-card-name">Túi Đay Cao Cấp SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+                <a href="https://shegan.vn/products/ly-su-co-hop-cao-cap-shegan-330ml" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/ly-su.webp');"></div>
+          <div class="prod-card-cat">Premium · Ly sứ</div>
+          <h3 class="prod-card-name">Ly Sứ Cao Cấp SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+                <a href="https://shegan.vn/products/tui-tote-vai-canvas-shegan-kich-thuoc-21cm-x-24cm-phu-kien-gon-nhe-tien-loi-than-thien-moi-truong" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/tui-tote.webp');"></div>
+          <div class="prod-card-cat">Tote Bag</div>
+          <h3 class="prod-card-name">Túi Tote SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+                <a href="https://shegan.vn/products/tui-vai-canvas-shegan" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/tui-my-pham.webp');"></div>
+          <div class="prod-card-cat">Cosmetic Pouch</div>
+          <h3 class="prod-card-name">Túi Mỹ Phẩm Có Quai</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+                <a href="https://shegan.vn/products/so-tay-ghi-chep-lo-xo-shegan-so-ke-hoach-planner-viet-nhat-ki-tap-vo-hoc-sinh-van-phong" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/so-tay.webp');"></div>
+          <div class="prod-card-cat">Stationery</div>
+          <h3 class="prod-card-name">Sổ Tay SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+                <a href="https://shegan.vn/products/hop-5-but-bi-giay-tai-che-than-thien-moi-truong" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/hop-but.webp');"></div>
+          <div class="prod-card-cat">Stationery</div>
+          <h3 class="prod-card-name">Hộp Bút SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a href="https://shegan.vn/products/day-buoc-toc-scrunchie-shegan-phu-kien-thoi-trang" target="_blank" rel="noopener" class="prod-card">
+          <div class="prod-card-img" style="background-image: url('assets/products/accessories/cot-toc.webp');"></div>
+          <div class="prod-card-cat">Hair Accessory</div>
+          <h3 class="prod-card-name">Cột Tóc SHEGAN</h3>
+          <span class="prod-card-cta">
+            Đặt hàng
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="footer-wrap">
+  <footer class="site-footer">
+    <div class="footer-top footer-top-3col">
+      <div class="footer-brand-col">
+        <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-img on-dark" style="max-width: 220px; margin-bottom: 16px;">
+        <div class="footer-name">Phạm Hồng Thúy Vân</div>
+        <p>Á hậu Quốc tế 2015 · Nhà sáng lập SHEGAN · Nghệ sĩ và diễn giả truyền cảm hứng. Yêu bản thân, đẹp cộng đồng.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Pháp nhân</div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
+          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+        </div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
+          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Liên hệ</div>
+        <ul>
+          <li><a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a></li>
+          <li><a href="tel:0898879193">089 887 91 93</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SHEGAN · Phạm Hồng Thúy Vân. All rights reserved.</div>
+      <div class="footer-copy">Designed with care · Made in Vietnam</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Sticky header shadow on scroll
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
+    if (!hdr) return;
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      var shouldBeScrolled = window.scrollY > 20;
+      if (shouldBeScrolled !== scrolled) {
+        scrolled = shouldBeScrolled;
+        hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
+      }
+    }, { passive: true });
+  })();
+
+  // Carousel arrows — supports multiple carousels on same page
+  (function() {
+    var wraps = document.querySelectorAll('.prod-carousel-wrap');
+    wraps.forEach(function(wrap) {
+      var carousel = wrap.querySelector('.prod-carousel');
+      var prev = wrap.querySelector('.prod-carousel-nav.prev');
+      var next = wrap.querySelector('.prod-carousel-nav.next');
+      if (!carousel || !prev || !next) return;
+
+      function step() {
+        var card = carousel.querySelector('.prod-card');
+        if (!card) return carousel.clientWidth;
+        var style = getComputedStyle(carousel);
+        var gap = parseInt(style.gap) || 24;
+        return card.offsetWidth + gap;
+      }
+      function updateButtons() {
+        var max = carousel.scrollWidth - carousel.clientWidth - 2;
+        prev.disabled = carousel.scrollLeft <= 1;
+        next.disabled = carousel.scrollLeft >= max;
+      }
+      prev.addEventListener('click', function() {
+        carousel.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', function() {
+        carousel.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+      carousel.addEventListener('scroll', updateButtons, { passive: true });
+      window.addEventListener('resize', updateButtons);
+      updateButtons();
+    });
+  })();
+
+  // Mobile hamburger toggle
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var btn = hdr ? hdr.querySelector('.header-hamburger') : null;
+    if (!hdr || !btn) return;
+    btn.addEventListener('click', function() {
+      hdr.classList.toggle('menu-open');
+    });
+    hdr.querySelectorAll('.header-menu a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hdr.classList.remove('menu-open');
+      });
+    });
+  })();
+
+</script>
+
+</body>
+</html>

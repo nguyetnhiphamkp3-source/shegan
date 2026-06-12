@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Về Thuý Vân — Phạm Hồng Thúy Vân</title>
+<meta name="description" content="Về Thuý Vân — Á hậu Quốc tế 2015, nhà sáng lập SHEGAN, nghệ sĩ và diễn giả truyền cảm hứng. Sứ mệnh, tầm nhìn và giải thưởng.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============ HEADER — TRANSPARENT OVERLAY ON HERO ============ */
+  body { padding-top: 0; }
+  .site-header {
+    position: relative;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--porcelain);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    text-shadow: none;
+  }
+  .brand-logo {
+    height: 22px; width: auto; display: block;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(15, 10, 7, 0.5));
+    transition: filter 0.3s ease;
+  }
+
+  .header-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: transparent;
+    /* Blur moved to .header-blur-layer (sibling) so dropdown's own backdrop-filter
+       isn't suppressed by an ancestor backdrop-filter chain. */
+    border-bottom: none;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    gap: 24px;
+  }
+  .header-nav.scrolled { background: transparent; }
+  /* Blur layer sits BEHIND the nav as a fixed bar at top of viewport.
+     It is a sibling (not ancestor) of the dropdown — so the dropdown's own
+     backdrop-filter is free to filter actual page content beneath it. */
+  .header-blur-layer {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    z-index: 999;
+    pointer-events: none;
+    transition: background 0.35s ease;
+  }
+  .header-blur-layer.scrolled { background: rgba(15, 10, 7, 0.55); }
+  .header-brand {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .header-right {
+    display: flex; align-items: center; gap: 32px;
+  }
+  .header-menu {
+    display: flex; gap: 36px; list-style: none;
+    margin: 0; padding: 0;
+  }
+  .header-menu a {
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 600;
+    color: var(--porcelain); text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 0; position: relative;
+    transition: color 0.3s ease;
+    text-shadow: none;
+  }
+  .header-menu a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--mesh-gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .header-menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .header-menu a.active { color: var(--porcelain); }
+  .header-menu a.active::after { transform: scaleX(1); }
+
+  /* Dropdown caret — show small ↓ arrow next to menu items that have a dropdown */
+  .dropdown-caret {
+    display: inline-block !important;
+    width: 8px; height: 6px;
+    margin-left: 8px;
+    opacity: 0.85;
+    transition: transform 0.3s ease;
+  }
+  .has-dropdown:hover > a .dropdown-caret { transform: rotate(180deg); }
+
+  /* Dropdown styling now lives in global style.css (.site-header .header-dropdown
+     inside @media (min-width: 901px)) — mobile uses the light .menu-open cascade. */
+  .header-utils {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .header-icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--porcelain);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 6px rgba(15, 10, 7, 0.5));
+  }
+  .header-icon-btn:hover {
+    background: rgba(253, 249, 242, 0.15);
+    border-color: rgba(253, 249, 242, 0.3); color: var(--porcelain);
+  }
+  .header-icon-btn svg { width: 16px; height: 16px; }
+
+  main { padding-top: 0; }
+
+  /* ============ ABOUT PAGE LAYOUT ============ */
+  /* Hero — text left on light cream gradient, image bleeds right naturally. */
+  .about-hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 100px 72px 80px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+    text-align: left;
+    background:
+      linear-gradient(90deg,
+        rgba(255, 253, 248, 0.55) 0%,
+        rgba(255, 253, 248, 0.32) 35%,
+        rgba(255, 253, 248, 0.12) 60%,
+        transparent 85%),
+      url('assets/beauty/about-hero-vethuyvan.webp') center 18% / cover no-repeat;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--heading);
+    overflow: hidden;
+  }
+  .about-hero::after { display: none; }
+  .about-hero-content {
+    position: relative; z-index: 2;
+    max-width: 580px;
+  }
+  .about-hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(48px, 6vw, 84px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #F5C8D2 0%, #E5A0AE 35%, #C97583 70%, #9C5366 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    font-weight: 500;
+    margin: 18px 0 20px;
+    text-align: left;
+    text-shadow: none;
+  }
+  .about-hero h1 em {
+    font-style: normal; font-weight: 500;
+    background: linear-gradient(135deg, #E5A0AE 0%, #B36275 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .about-hero-sub {
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.75;
+    color: var(--text);
+    max-width: 520px;
+    margin: 0;
+    text-align: left;
+  }
+
+  .about-section {
+    padding: 60px 40px;
+    max-width: none;
+    margin: 0;
+    background: var(--white);
+  }
+  .about-section > * {
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .about-section-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .about-section-head .section-num { display: inline-block; margin-bottom: 12px; }
+  .about-section-head h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--heading);
+    font-weight: 500;
+  }
+  .about-section-head h2 em {
+    font-style: normal; font-weight: 400;
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  .footer-wrap {
+    width: 100%;
+    padding: 0;
+  }
+  .footer-wrap .site-footer {
+    border-radius: 0;
+  }
+  .footer-top.footer-top-3col {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 64px;
+  }
+  @media (max-width: 900px) {
+    .footer-top.footer-top-3col {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  /* Bỏ tất cả eyebrow "VỀ THUÝ VÂN / CÂU CHUYỆN / GHI NHẬN / KẾT NỐI" */
+  .about-hero-eyebrow { display: none !important; }
+
+  /* About section rhythm — alternate white and soft ivory bands.
+     `isolation: isolate` on each section creates its own stacking context
+     so the body::before grain (mix-blend-mode: multiply) can't bleed through
+     section bg on iOS Safari. */
+  #intro,
+  #mission,
+  #vision,
+  #education,
+  #founder,
+  #awards {
+    isolation: isolate;
+    position: relative;
+    z-index: 0;
+  }
+  #intro {
+    background: var(--white);
+  }
+  #mission {
+    background:
+      radial-gradient(at 12% 20%, rgba(247, 235, 208, 0.24), transparent 54%),
+      radial-gradient(at 86% 82%, rgba(215, 193, 147, 0.11), transparent 58%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(250, 243, 231, 0.94)),
+      var(--cream);
+  }
+  #vision {
+    background: var(--white);
+  }
+  #education {
+    background:
+      radial-gradient(at 88% 18%, rgba(247, 235, 208, 0.22), transparent 56%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(250, 243, 231, 0.94)),
+      var(--cream);
+  }
+  #founder {
+    background: var(--white);
+  }
+  #awards {
+    background:
+      radial-gradient(at 18% 72%, rgba(247, 235, 208, 0.2), transparent 56%),
+      linear-gradient(180deg, #FBF7EF 0%, #FFFFFF 100%);
+  }
+
+  /* ============ AWARDS V6 — Portrait + Categorized Lists ============ */
+  #awards { padding: 100px 40px; }
+  #awards > * { max-width: 1280px; }
+  .awards-v6-split {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .awards-v6-portrait {
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 96px;
+  }
+  .awards-v6-portrait::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15, 10, 7, 0.55), transparent 50%);
+  }
+  .awards-v6-portrait-label {
+    position: absolute; left: 28px; right: 28px; bottom: 26px;
+    color: var(--pearl);
+    font-family: var(--font-heading);
+    font-size: 22px; font-weight: 500;
+    z-index: 2;
+    line-height: 1.1;
+  }
+  .awards-v6-portrait-label span {
+    display: block;
+    font-family: var(--font-body); font-size: 10px;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--champagne);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .awards-v6-categories {
+    display: flex; flex-direction: column;
+    gap: 44px;
+  }
+  .awards-v6-cat-head {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--antique-gold);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .awards-v6-cat-head .count {
+    font-family: var(--font-heading);
+    font-size: 24px; font-weight: 400;
+    color: var(--royal-gold);
+    letter-spacing: 0;
+  }
+  .awards-v6-list {
+    display: flex; flex-direction: column;
+    gap: 16px;
+  }
+  .awards-v6-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+    align-items: baseline;
+  }
+  .awards-v6-item .y {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .awards-v6-item .t {
+    font-family: var(--font-heading);
+    font-size: 19px; font-weight: 500;
+    line-height: 1.4;
+    color: var(--heading);
+  }
+  .awards-v6-item .t em { font-style: normal; color: var(--royal-gold); }
+
+  @media (max-width: 900px) {
+    #awards { padding: 56px 20px; }
+    .awards-v6-split { grid-template-columns: 1fr; gap: 0; }
+    /* Hide portrait on mobile — saves ~430px of empty space and brings
+       title directly above the categorized award lists. */
+    .awards-v6-portrait { display: none; }
+    .awards-v6-categories { gap: 32px; }
+    .awards-v6-item { grid-template-columns: 1fr; gap: 4px; }
+    .awards-v6-item .y { font-size: 10px; letter-spacing: 0.22em; }
+    .awards-v6-item .t { font-size: 16px; }
+    .awards-v6-cat-head { font-size: 10px; letter-spacing: 0.32em; }
+    .awards-v6-cat-head .count { font-size: 20px; }
+  }
+
+  /* ===== FULLWIDTH SPLIT SECTIONS (Hành trình → Nhà khởi nghiệp) =====
+     Each section spans 100% viewport; image one side flush to edge,
+     content the other side with 80px padding from outer edge. */
+  #intro,
+  #mission,
+  #vision,
+  #education,
+  #founder {
+    padding: 0;
+  }
+  #intro > *,
+  #mission > *,
+  #vision > *,
+  #education > *,
+  #founder > * {
+    max-width: none;
+    margin: 0;
+  }
+  #intro .ti-split,
+  #mission .ti-split,
+  #vision .ti-split,
+  #education .ti-split,
+  #founder .ti-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    align-items: stretch;
+    min-height: 95vh;
+  }
+  #intro .ti-content,
+  #mission .ti-content,
+  #vision .ti-content,
+  #education .ti-content,
+  #founder .ti-content {
+    padding: 96px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #intro .ti-image,
+  #mission .ti-image,
+  #vision .ti-image,
+  #education .ti-image,
+  #founder .ti-image {
+    aspect-ratio: auto;
+    border-radius: 0;
+    margin: 0;
+    min-height: 95vh;
+    box-shadow: none;
+  }
+  #intro .ti-content h3,
+  #mission .ti-content h3,
+  #vision .ti-content h3,
+  #education .ti-content h3,
+  #founder .ti-content h3 {
+    font-size: clamp(32px, 3vw, 44px);
+    line-height: 1.15;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 900px) {
+    #intro .ti-split,
+    #mission .ti-split,
+    #vision .ti-split,
+    #education .ti-split,
+    #founder .ti-split {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    #intro .ti-content,
+    #mission .ti-content,
+    #vision .ti-content,
+    #education .ti-content,
+    #founder .ti-content {
+      padding: 56px 28px;
+    }
+    #intro .ti-image,
+    #mission .ti-image,
+    #vision .ti-image,
+    #education .ti-image,
+    #founder .ti-image {
+      min-height: 60vw;
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  /* ===== ABOUT HERO — text styling (layout above) ===== */
+  .about-hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--champagne);
+    display: inline-flex; align-items: center; gap: 14px;
+    margin: 0 0 16px;
+  }
+  .about-hero-eyebrow::before,
+  .about-hero-eyebrow::after {
+    content: ''; width: 40px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--champagne));
+  }
+  .about-hero-eyebrow::after {
+    background: linear-gradient(90deg, var(--champagne), transparent);
+  }
+  .about-hero-roles {
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--heading);
+    margin: 0 0 28px;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+  .about-hero-roles span {
+    display: inline-block;
+    margin: 0 14px;
+    color: var(--text-muted);
+  }
+  .about-hero-quote {
+    margin-top: 48px;
+    padding: 32px 40px;
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+    border-top: 1px solid rgba(244,228,193,0.25);
+    border-bottom: 1px solid rgba(244,228,193,0.25);
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.4;
+    color: var(--pearl);
+  }
+  .about-hero-quote em {
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    font-weight: 500;
+  }
+
+  /* Eyebrow on light sections (non-hero) stays with antique-gold */
+  .about-section-head .about-hero-eyebrow {
+    color: var(--antique-gold);
+  }
+
+  /* ===== PHILOSOPHY — Mission + Vision 2-col ===== */
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .philosophy-card {
+    padding: 48px 40px;
+    background: #FDF8F0;
+    border-radius: 0;
+    position: relative;
+  }
+  .philosophy-card .ti-eyebrow { margin-bottom: 20px; }
+  .philosophy-card h3 {
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 2.6vw, 34px);
+    line-height: 1.15;
+    font-weight: 500;
+    color: var(--heading);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .philosophy-card h3 em {
+    font-style: italic;
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .philosophy-card p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-soft);
+  }
+  .philosophy-pillars {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .philosophy-pillar {
+    text-align: center;
+  }
+  .philosophy-pillar .pillar-num {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 32px;
+    background: var(--mesh-gold);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .philosophy-pillar .pillar-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--warm-brown);
+    margin-bottom: 6px;
+  }
+  .philosophy-pillar .pillar-desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  /* ===== CONNECT section ===== */
+  #connect {
+    background:
+      radial-gradient(at 20% 30%, rgba(247,235,208,0.18), transparent 55%),
+      radial-gradient(at 80% 70%, rgba(215,194,154,0.08), transparent 55%),
+      linear-gradient(180deg, #FFFFFF 0%, #FFFCF6 100%);
+  }
+  #connect .about-section {
+    padding-top: 60px; padding-bottom: 60px;
+    background: transparent;
+  }
+  #connect .social-cluster {
+    justify-content: center;
+  }
+  .connect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 900px) {
+    .about-hero {
+      padding: 110px 24px 64px;
+      min-height: 92vh;
+      min-height: 92svh;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: flex-end;
+      /* Light cream gradient bottom-up so photo subject (upper part) shows clear
+         and dark text at bottom stays readable on light overlay. */
+      background:
+        linear-gradient(180deg,
+          rgba(255, 253, 248, 0) 0%,
+          rgba(255, 253, 248, 0.3) 55%,
+          rgba(255, 253, 248, 0.7) 100%),
+        url('assets/beauty/about-hero-vethuyvan.webp') center 20% / cover no-repeat;
+    }
+    .about-hero-content { max-width: 100%; }
+    .about-hero h1 { font-size: clamp(36px, 9vw, 52px); margin-bottom: 14px; }
+    .about-hero-roles { font-size: 16px; margin-bottom: 18px; }
+    .about-hero-sub { font-size: 15px; }
+    .philosophy-grid { grid-template-columns: 1fr; gap: 16px; }
+    .philosophy-pillars { grid-template-columns: 1fr; gap: 28px; padding: 32px 20px; }
+    .philosophy-card { padding: 32px 24px; }
+    .connect-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .brand-name { font-size: 12px; letter-spacing: 0.12em; }
+    .brand-logo { height: 20px; }
+    .header-nav {
+      padding: 10px 20px; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .header-right { gap: 16px; }
+    .header-menu { gap: 16px; flex-wrap: wrap; }
+    .header-menu a { font-size: 13px; font-weight: 600; }
+    .about-section { padding: 36px 20px; }
+    #connect .about-section { padding-top: 36px; padding-bottom: 36px; }
+
+    /* Social cluster — fit all 4 icons on 1 row */
+    #connect .social-cluster { padding: 18px; gap: 10px; flex-wrap: nowrap; justify-content: space-between; }
+    #connect .social-cluster .social-btn { width: 40px; height: 40px; flex-shrink: 0; }
+    #connect .social-cluster-label { margin-right: 0; font-size: 10px; letter-spacing: 0.22em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER — single row: logo+name left, menu+utils right ============ -->
+<header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
+  <nav class="header-nav" id="siteHeader">
+    <a href="index.html" class="header-brand">
+      <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
+      <span class="brand-name">Pham Hong Thuy Van</span>
+    </a>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li><a href="about.html" class="active">Về Thuý Vân</a></li>
+        <li class="has-dropdown">
+          <a href="music.html">Sản Phẩm
+            <svg class="dropdown-caret" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M6 8 0 0h12z"/></svg>
+          </a>
+          <ul class="header-dropdown">
+            <li><a href="music.html">Âm Nhạc</a></li>
+            <li><a href="shegan.html">SHeGAN</a></li>
+            <li><a href="elearning.html">E-Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">Tin Tức</a></li>
+        <li><a href="careers.html">Việc Làm</a></li>
+      </ul>
+    </div>
+      <button class="header-hamburger" type="button" aria-label="Mở menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="about-hero" id="hero">
+    <div class="about-hero-content">
+      <h1>Phạm Hồng <em>Thuý Vân</em></h1>
+      <p class="about-hero-roles">Nghệ sĩ <span>·</span> Doanh nhân <span>·</span> Học giả</p>
+      <p class="about-hero-sub">
+        Á hậu Quốc tế 2015, nhà sáng lập SHEGAN — người phụ nữ hiện đại dung hoà nhan sắc, trí tuệ và bản lĩnh trên hành trình kiến tạo lối sống ý thức cho cộng đồng.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 2. CÂU CHUYỆN (Hành trình) ============ -->
+  <section class="about-section" id="intro">
+    <div class="ti-split">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Câu Chuyện</div>
+        <h3>Hành trình dung hoà<br>nhan sắc, trí tuệ &amp; bản lĩnh</h3>
+        <p>
+          Khởi đầu từ danh hiệu Á hậu Quốc tế 2015, Phạm Hồng Thúy Vân đã khẳng định vị thế của một người phụ nữ hiện đại khi dung hòa trọn vẹn nhan sắc, trí tuệ và bản lĩnh. Cô không ngừng bứt phá trong nhiều vai trò: từ MC chuyên nghiệp, ca-nhạc sĩ đến nhà sáng lập thương hiệu phong cách sống ý thức SHEGAN.
+        </p>
+        <p>
+          Với triết lý sống ý thức và tư duy phát triển bền vững, Thúy Vân dành tâm huyết lan tỏa giá trị tri thức và thúc đẩy quyền phụ nữ thông qua các hoạt động kinh doanh và giáo dục cộng đồng. Ở bất kỳ lĩnh vực nào, cô cũng là hình mẫu đại diện cho một thế hệ phụ nữ Việt Nam năng động, không ngừng kiến tạo những giá trị nhân văn cho cộng đồng với tinh thần "Yêu bản thân, đẹp cộng đồng".
+        </p>
+      </div>
+      <div class="ti-image has-photo" style="background: url('assets/beauty/tangtang-01.webp') center top / cover;">
+        <div class="ti-image-caption">"Yêu bản thân, đẹp cộng đồng"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SỨ MỆNH ============ -->
+  <section class="about-section" id="mission">
+    <div class="ti-split reverse">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Sứ Mệnh</div>
+        <h3>Cân bằng giữa <em>Thân&nbsp;–&nbsp;Tâm&nbsp;–&nbsp;Trí</em></h3>
+        <p>
+          Thuý Vân theo đuổi sứ mệnh lan toả một lối sống ý thức — nơi mỗi cá nhân không chỉ sống tốt hơn mà còn hiểu rõ giá trị của việc phát triển bản thân một cách toàn diện và bền vững.
+        </p>
+        <p>
+          Một cuộc sống chất lượng được xây từ sự cân bằng và nuôi dưỡng lâu dài giữa <em>Thân – Tâm – Trí</em>, chứ không đến từ những thay đổi nhất thời. Thuý Vân mong muốn truyền cảm hứng để mỗi người chủ động chăm sóc sức khoẻ thể chất, nuôi dưỡng đời sống tinh thần và không ngừng phát triển tư duy.
+        </p>
+      </div>
+      <div class="ti-image has-photo" style="background: url('assets/beauty/canon-eos.webp') center top / cover;">
+        <div class="ti-image-caption">"Sống có ý thức, cân bằng và bền vững"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. TẦM NHÌN ============ -->
+  <section class="about-section" id="vision">
+    <div class="ti-split">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Tầm Nhìn</div>
+        <h3>Phong cách sống <em>ý thức</em> của thời đại mới</h3>
+        <p>
+          Thuý Vân hướng đến việc xây dựng một hình ảnh đại diện cho phong cách sống ý thức trong thời đại mới — nơi mỗi cá nhân không chỉ theo đuổi thành công, mà còn chú trọng đến giá trị bền vững và trách nhiệm với cộng đồng.
+        </p>
+        <p>
+          Tầm nhìn được định hình dựa trên ba trụ cột cốt lõi: <em>Kinh tế bền vững · Nghệ thuật truyền cảm hứng · Tri thức văn hoá</em> — kiến tạo một hệ giá trị toàn diện, truyền cảm hứng để mỗi người sống có ý thức hơn, phát triển cân bằng và tạo ra những đóng góp tích cực, lâu dài cho xã hội.
+        </p>
+      </div>
+      <div class="ti-image v2 has-photo" style="background: url('assets/beauty/phong-cach-song.webp') center top / cover;">
+        <div class="ti-image-caption">"Kinh tế – Nghệ thuật – Tri thức"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. HỌC VẤN ============ -->
+  <section class="about-section" id="education">
+    <div class="ti-split reverse">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Học Vấn</div>
+        <h3>Học vấn</h3>
+        <p>
+          Không chỉ được biết đến bởi nhan sắc và hình ảnh chuyên nghiệp, Thuý Vân còn ghi dấu ấn với nền tảng học vấn và tư duy phát triển bản thân bền vững. Với cô, tri thức không chỉ là nền tảng cho sự nghiệp, mà còn là chìa khóa giúp mỗi người hoàn thiện chính mình, mở rộng góc nhìn và tạo ra những giá trị tích cực cho cộng đồng.
+        </p>
+        <p>
+          Cô là cựu học sinh Trường THPT Nguyễn Thị Minh Khai — một trong những ngôi trường có bề dày truyền thống tại TP.HCM. Sau đó, Thuý Vân theo học chuyên ngành Thanh nhạc tại Trường Cao đẳng Văn hóa Nghệ thuật TP.HCM, đồng thời không ngừng mở rộng kiến thức ở nhiều lĩnh vực khác nhau.
+        </p>
+        <p>
+          Năm 2018, cô tiếp tục theo học chuyên ngành Truyền thông chuyên nghiệp tại RMIT University Vietnam và chính thức tốt nghiệp vào năm 2023. Hiện tại, Thuý Vân tiếp tục theo đuổi chương trình Thạc sĩ ngành Văn hóa học tại Trường Đại học Khoa học Xã hội và Nhân văn — Đại học Quốc gia TP.HCM, thể hiện tinh thần học tập không ngừng và định hướng phát triển chiều sâu về tri thức, văn hóa và truyền thông.
+        </p>
+      </div>
+      <div class="ti-image has-photo" style="background: url('assets/beauty/img-9108.webp') center top / cover;">
+        <div class="ti-image-caption">"Tri thức là nền tảng của sự trưởng thành"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. NHÀ KHỞI NGHIỆP ============ -->
+  <section class="about-section" id="founder">
+    <div class="ti-split">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Nhà Khởi Nghiệp</div>
+        <h3>Nhà khởi nghiệp</h3>
+        <p>
+          Không chỉ hoạt động trong lĩnh vực nghệ thuật và truyền thông, Thuý Vân còn đánh dấu hành trình của mình với vai trò nhà khởi nghiệp thông qua việc sáng lập SHeGAN Vietnam — thương hiệu mỹ phẩm thuần chay ra đời vào ngày 15/11/2022. SHEGAN được hình thành từ mong muốn mang đến những sản phẩm làm đẹp an toàn, lành tính và bền vững hơn cho người tiêu dùng, đặc biệt trong bối cảnh ngày càng nhiều người quan tâm đến sức khỏe, môi trường và lối sống có ý thức.
+        </p>
+        <p>
+          Đối với Thuý Vân, làm đẹp không chỉ dừng lại ở vẻ ngoài mà còn là cách mỗi người lựa chọn sống và chăm sóc bản thân một cách có trách nhiệm. Chính vì vậy, SHeGAN không đơn thuần là một thương hiệu mỹ phẩm mà còn đại diện cho một phong cách sống tích cực, nơi vẻ đẹp được xây dựng từ sự cân bằng giữa con người, sức khỏe và thiên nhiên.
+        </p>
+      </div>
+      <div class="ti-image v2 has-photo" style="background: url('assets/beauty/nha-khoi-nghiep.webp') center top / cover;">
+        <div class="ti-image-caption">"Sáng lập SHEGAN — vẻ đẹp thuần chay"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. GIẢI THƯỞNG & THÀNH TỰU (Portrait + Categorized) ============ -->
+  <section class="about-section" id="awards">
+    <div class="about-section-head">
+      <div class="about-hero-eyebrow">Ghi Nhận</div>
+      <h2>Giải thưởng &amp; <em>thành tựu</em></h2>
+    </div>
+
+    <div class="awards-v6-split">
+      <div class="awards-v6-portrait" style="background: url('assets/beauty/tv961.webp') center top / cover;">
+        <div class="awards-v6-portrait-label">
+          <span>Phạm Hồng</span>
+          Thuý Vân
+        </div>
+      </div>
+
+      <div class="awards-v6-categories">
+        <div class="awards-v6-group">
+          <div class="awards-v6-cat-head">Honors &amp; International <span class="count">03</span></div>
+          <div class="awards-v6-list">
+            <div class="awards-v6-item"><div class="y">2015</div><div class="t">Á hậu 3 <em>Hoa hậu Quốc tế</em></div></div>
+            <div class="awards-v6-item"><div class="y">2015</div><div class="t"><em>Missosology Choice Award</em></div></div>
+            <div class="awards-v6-item"><div class="y">2016</div><div class="t">Đại sứ <em>Du lịch Nhật Bản</em></div></div>
+          </div>
+        </div>
+
+        <div class="awards-v6-group">
+          <div class="awards-v6-cat-head">Truyền hình &amp; Cuộc thi <span class="count">02</span></div>
+          <div class="awards-v6-list">
+            <div class="awards-v6-item"><div class="y">MC · Host</div><div class="t">Chương trình lớn trên <em>VTV · HTV</em> và các sự kiện quốc gia</div></div>
+            <div class="awards-v6-item"><div class="y">Giám khảo</div><div class="t">Miss Fitness Vietnam · The TVFace · <em>Vietnam's Next Top Model</em></div></div>
+          </div>
+        </div>
+
+        <div class="awards-v6-group">
+          <div class="awards-v6-cat-head">Founder &amp; Business <span class="count">03</span></div>
+          <div class="awards-v6-list">
+            <div class="awards-v6-item"><div class="y">Non-profit</div><div class="t"><em>Inspired by SHE</em> — thúc đẩy quyền phụ nữ &amp; giáo dục</div></div>
+            <div class="awards-v6-item"><div class="y">Founder · CEO</div><div class="t">Sáng lập &amp; điều hành <em>SHEGAN ENM</em></div></div>
+            <div class="awards-v6-item"><div class="y">Founder</div><div class="t">Thương hiệu lifestyle <em>SHEGAN</em></div></div>
+          </div>
+        </div>
+
+        <div class="awards-v6-group">
+          <div class="awards-v6-cat-head">Nghệ thuật &amp; Truyền cảm hứng <span class="count">02</span></div>
+          <div class="awards-v6-list">
+            <div class="awards-v6-item"><div class="y">Nghệ sĩ</div><div class="t">Ca sĩ · Nhà sáng tác · Nhà sản xuất — phát hành trên nhiều <em>nền tảng quốc tế</em></div></div>
+            <div class="awards-v6-item"><div class="y">Diễn giả</div><div class="t">Truyền cảm hứng tại các diễn đàn lớn và <em>30+ trường đại học</em></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. KẾT NỐI ============ -->
+  <section id="connect">
+    <div class="about-section">
+      <div class="about-section-head">
+        <div class="about-hero-eyebrow">Kết Nối</div>
+        <h2>Gặp gỡ <em>Thuý Vân</em></h2>
+      </div>
+
+      <div class="connect-grid">
+        <div class="social-cluster">
+          <span class="social-cluster-label">Theo dõi</span>
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block-eyebrow">Liên hệ trực tiếp</div>
+          <h4>Hợp tác, mời diễn giả &amp; truyền thông</h4>
+          <div class="contact-line">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <div>
+              <span class="contact-label">Email</span>
+              <a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-line">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+            </span>
+            <div>
+              <span class="contact-label">Hotline</span>
+              <a href="tel:0898879193">089 887 91 93</a>
+            </div>
+          </div>
+          <div class="contact-line">
+            <span class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div>
+              <span class="contact-label">Văn phòng</span>
+              112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<div class="footer-wrap">
+  <footer class="site-footer">
+    <div class="footer-top footer-top-3col">
+      <div class="footer-brand-col">
+        <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-img on-dark" style="max-width: 220px; margin-bottom: 16px;">
+        <div class="footer-name">Phạm Hồng Thúy Vân</div>
+        <p>Á hậu Quốc tế 2015 · Nhà sáng lập SHEGAN · Nghệ sĩ và diễn giả truyền cảm hứng. Yêu bản thân, đẹp cộng đồng.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Pháp nhân</div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
+          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+        </div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
+          <div class="footer-company-addr">112 Đường B2, KĐT Sala,<br>Phường An Lợi Đông, Tp. Thủ Đức, HCM</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Liên hệ</div>
+        <ul>
+          <li><a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a></li>
+          <li><a href="tel:0898879193">089 887 91 93</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SHEGAN · Phạm Hồng Thúy Vân. All rights reserved.</div>
+      <div class="footer-copy">Designed with care · Made in Vietnam</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Sticky header shadow on scroll
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
+    if (!hdr) return;
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      var shouldBeScrolled = window.scrollY > 20;
+      if (shouldBeScrolled !== scrolled) {
+        scrolled = shouldBeScrolled;
+        hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
+      }
+    }, { passive: true });
+  })();
+
+  // Mobile hamburger toggle
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var btn = hdr ? hdr.querySelector('.header-hamburger') : null;
+    if (!hdr || !btn) return;
+    btn.addEventListener('click', function() {
+      hdr.classList.toggle('menu-open');
+    });
+    hdr.querySelectorAll('.header-menu a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hdr.classList.remove('menu-open');
+      });
+    });
+  })();
+
+</script>
+
+</body>
+</html>
