@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Việc Làm — SHeGAN Vietnam | Phạm Hồng Thúy Vân</title>
+<meta name="description" content="SHeGAN Vietnam tuyển dụng nhân sự 2026 — các vị trí Sáng tạo, Ecommerce, Marketing, KOC, Vận hành.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============ HEADER — GLASS CREAM ============ */
+  body { padding-top: 0; }
+  .site-header {
+    position: relative; width: 100%;
+    background: transparent;
+    z-index: 1000;
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-brown);
+    white-space: nowrap;
+  }
+  .brand-logo { height: 22px; width: auto; display: block; }
+  .header-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(253, 249, 242, 0.92);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(236, 217, 184, 0.5);
+    transition: box-shadow 0.3s ease;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    gap: 24px;
+  }
+  .header-nav.scrolled { box-shadow: 0 4px 20px rgba(139, 111, 63, 0.1); }
+  .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .header-right { display: flex; align-items: center; gap: 32px; }
+  .header-menu { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+  .header-menu a {
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 700;
+    color: var(--text-soft); text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 4px 0; position: relative;
+    transition: color 0.3s ease;
+  }
+  .header-menu a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--mesh-gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .header-menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .header-menu a.active { color: var(--antique-gold); }
+  .header-menu a.active::after { transform: scaleX(1); }
+  .header-utils { display: flex; align-items: center; gap: 8px; }
+  .header-icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--warm-brown);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .header-icon-btn:hover {
+    background: var(--mesh-gold-subtle);
+    border-color: var(--border); color: var(--antique-gold);
+  }
+  .header-icon-btn svg { width: 16px; height: 16px; }
+
+  main { padding-top: 0; }
+
+  /* ============ CAREERS PAGE ============ */
+  .careers-section {
+    padding: 140px 40px 120px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .careers-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .careers-head h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--heading);
+    font-weight: 500;
+    margin: 0 0 18px;
+  }
+  .careers-head h1 em {
+    font-style: italic; font-weight: 400;
+    color: var(--heading);
+  }
+  .careers-head p {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.7;
+    color: var(--text-soft);
+    max-width: 620px; margin: 0 auto;
+  }
+  .careers-tagline {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--antique-gold);
+    margin-bottom: 18px;
+  }
+
+  .footer-wrap { width: 100%; padding: 0; }
+  .footer-wrap .site-footer { border-radius: 0; }
+  .footer-top.footer-top-3col { grid-template-columns: 1.4fr 1fr 1fr; gap: 64px; }
+
+  @media (max-width: 900px) {
+    .careers-section { padding: 110px 20px 80px; }
+    .careers-head { margin-bottom: 36px; }
+    /* Apply button — fit-content on 1 line */
+    .job-apply {
+      white-space: nowrap;
+      letter-spacing: 0.18em !important;
+      padding: 11px 20px !important;
+      width: auto !important;
+      max-width: max-content;
+    }
+    .footer-top.footer-top-3col { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ============ APPLY MODAL ============ */
+  .apply-modal {
+    position: fixed; inset: 0; z-index: 2000;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .apply-modal.is-open { display: flex; }
+  .apply-modal__backdrop {
+    position: absolute; inset: 0;
+    background: rgba(46, 30, 18, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .apply-modal__dialog {
+    position: relative;
+    width: 100%; max-width: 480px;
+    background: #FDF9F2;
+    border: 1px solid rgba(236, 217, 184, 0.7);
+    border-radius: 18px;
+    box-shadow: 0 30px 80px -20px rgba(46, 30, 18, 0.35);
+    padding: 36px 36px 32px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    animation: applyModalIn 0.32s cubic-bezier(.4,0,.2,1);
+  }
+  @keyframes applyModalIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .apply-modal__close {
+    position: absolute; top: 14px; right: 14px;
+    width: 36px; height: 36px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--warm-brown);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .apply-modal__close:hover {
+    background: var(--mesh-gold-subtle);
+    border-color: var(--border);
+    color: var(--antique-gold);
+  }
+  .apply-modal__close svg { width: 16px; height: 16px; }
+
+  .apply-modal__head { text-align: center; margin-bottom: 22px; }
+  .apply-modal__tagline {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--antique-gold);
+    margin-bottom: 10px;
+  }
+  .apply-modal__title {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+    color: var(--heading);
+    margin: 0 0 8px;
+  }
+  .apply-modal__position {
+    font-family: var(--font-body);
+    font-size: 13px; color: var(--text-soft);
+    margin: 0;
+  }
+  .apply-modal__position em {
+    font-style: normal; font-weight: 600;
+    color: var(--warm-brown);
+  }
+
+  .apply-form { display: flex; flex-direction: column; gap: 14px; }
+  .apply-field { display: flex; flex-direction: column; gap: 6px; }
+  .apply-field label {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--warm-brown);
+  }
+  .apply-field label span { color: var(--antique-gold); }
+  .apply-field input {
+    font-family: var(--font-body);
+    font-size: 14px; color: var(--text);
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid rgba(236, 217, 184, 0.8);
+    border-radius: 10px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .apply-field input::placeholder { color: rgba(139, 111, 63, 0.42); }
+  .apply-field input:focus {
+    outline: none;
+    border-color: var(--antique-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 122, 0.18);
+  }
+  .apply-field__hint {
+    font-family: var(--font-body);
+    font-size: 11px; color: var(--text-soft);
+  }
+
+  .apply-form__submit {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 10px;
+    padding: 14px 24px;
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--heading);
+    background: var(--btn-gradient);
+    border: none; border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+  }
+  .apply-form__submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px -10px rgba(184, 142, 90, 0.5);
+  }
+  .apply-form__submit svg { width: 14px; height: 14px; }
+
+  body.apply-modal-open { overflow: hidden; }
+
+  @media (max-width: 600px) {
+    .apply-modal { padding: 12px; align-items: flex-start; }
+    .apply-modal__dialog {
+      padding: 22px 20px 20px;
+      border-radius: 14px;
+      max-height: calc(100vh - 24px);
+      margin-top: 12px;
+    }
+    .apply-modal__close { top: 8px; right: 8px; width: 32px; height: 32px; }
+    .apply-modal__head { margin-bottom: 16px; }
+    .apply-modal__tagline { margin-bottom: 6px; font-size: 10px; letter-spacing: 0.32em; }
+    .apply-modal__title { font-size: 20px; line-height: 1.2; margin-bottom: 6px; }
+    .apply-modal__position { font-size: 12px; }
+    .apply-form { gap: 11px; }
+    .apply-field { gap: 4px; }
+    .apply-field label { font-size: 10px; letter-spacing: 0.1em; }
+    .apply-field input { padding: 10px 12px; font-size: 13px; border-radius: 9px; }
+    .apply-field__hint { font-size: 10px; line-height: 1.4; }
+    .apply-form__submit { margin-top: 4px; padding: 12px 22px; font-size: 11px; }
+  }
+
+  /* ============ HOVER — careers section (desktop only) ============ */
+  @media (hover: hover) {
+    .careers-section .job-item {
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1),
+                  box-shadow 0.45s ease,
+                  border-color 0.45s ease;
+    }
+    .careers-section .job-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--antique-gold);
+      box-shadow: 0 22px 48px -24px rgba(184, 142, 90, 0.55);
+    }
+
+    .careers-section .job-head { transition: background 0.35s ease; }
+    .careers-section .job-item:hover .job-head {
+      background: rgba(253, 249, 242, 0.55);
+    }
+
+    .careers-section .job-title-wrap h4 {
+      transition: color 0.35s ease, transform 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .careers-section .job-item:hover .job-title-wrap h4 {
+      color: var(--warm-brown);
+      transform: translateX(2px);
+    }
+
+    .careers-section .job-num {
+      transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), letter-spacing 0.35s ease;
+    }
+    .careers-section .job-item:hover .job-num {
+      transform: scale(1.1) translateX(2px);
+    }
+
+    .careers-section .job-toggle {
+      transition: transform 0.4s ease, background 0.35s ease,
+                  color 0.35s ease, border-color 0.35s ease;
+    }
+    .careers-section .job-item:not(.open):hover .job-toggle {
+      background: var(--btn-gradient);
+      color: var(--deep-brown);
+      border-color: transparent;
+    }
+
+    .careers-section .job-badge {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .careers-section .job-item:hover .job-badge {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px -6px rgba(184, 142, 90, 0.45);
+    }
+
+    .careers-section .job-apply {
+      transition: transform 0.3s ease, box-shadow 0.35s ease, letter-spacing 0.35s ease;
+    }
+    .careers-section .job-apply:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px -10px rgba(184, 142, 90, 0.55);
+      letter-spacing: 0.3em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
+  <nav class="header-nav" id="siteHeader">
+    <a href="index.html" class="header-brand">
+      <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
+      <span class="brand-name">Pham Hong Thuy Van</span>
+    </a>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li><a href="about.html">Về Thuý Vân</a></li>
+        <li class="has-dropdown">
+          <a href="music.html">Sản Phẩm
+            <svg class="dropdown-caret" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M6 8 0 0h12z"/></svg>
+          </a>
+          <ul class="header-dropdown">
+            <li><a href="music.html">Âm Nhạc</a></li>
+            <li><a href="shegan.html">SHeGAN</a></li>
+            <li><a href="elearning.html">E-Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">Tin Tức</a></li>
+        <li><a href="careers.html" class="active">Việc Làm</a></li>
+      </ul>
+    </div>
+    <button class="header-hamburger" type="button" aria-label="Mở menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="careers-section">
+    <div class="careers-head">
+      <h1>Cùng SHeGAN <em>kiến tạo giá trị</em></h1>
+      <p>8 vị trí đang mở — từ Sáng tạo, Ecommerce, KOC đến Vận hành. Gia nhập đội ngũ trẻ, năng động và cùng theo đuổi triết lý "Yêu bản thân, đẹp cộng đồng".</p>
+    </div>
+
+    <div class="job-list">
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">01</span>
+          <div class="job-title-wrap">
+            <h4>Chuyên viên Phòng Sáng tạo</h4>
+            <div class="job-dept">Sáng tạo · TP.HCM</div>
+          </div>
+          <span class="job-badge ft">Full-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Lên ý tưởng & sản xuất nội dung sáng tạo cho thương hiệu SHeGAN trên các nền tảng.</li>
+              <li>Phối hợp với team thiết kế, video, nhiếp ảnh để hiện thực hoá concept.</li>
+              <li>Theo dõi xu hướng beauty / lifestyle và chuyển hoá thành nội dung phù hợp với brand.</li>
+              <li>Đo lường hiệu quả nội dung và tối ưu liên tục.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>2+ năm kinh nghiệm tại agency hoặc in-house brand beauty / lifestyle.</li>
+              <li>Khả năng viết tiếng Việt sắc bén, tư duy thẩm mỹ tốt.</li>
+              <li>Thành thạo các công cụ sản xuất nội dung (Figma, CapCut, Premiere).</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — Chuyên viên Phòng Sáng tạo" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">02</span>
+          <div class="job-title-wrap">
+            <h4>Thực tập sinh Phòng Sáng tạo</h4>
+            <div class="job-dept">Sáng tạo · TP.HCM</div>
+          </div>
+          <span class="job-badge intern">Internship</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Hỗ trợ team sáng tạo trong việc lên ý tưởng và sản xuất nội dung hằng ngày.</li>
+              <li>Tham gia các buổi shooting, edit nội dung ngắn cho social.</li>
+              <li>Học hỏi quy trình làm việc của brand beauty cao cấp.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>Sinh viên năm 3-4 hoặc mới tốt nghiệp các ngành Marketing, Truyền thông, Thiết kế.</li>
+              <li>Đam mê làm đẹp, có tư duy hình ảnh và viết tốt.</li>
+              <li>Cam kết làm việc full-time tối thiểu 3 tháng.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — Thực tập sinh Phòng Sáng tạo" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">03</span>
+          <div class="job-title-wrap">
+            <h4>Chuyên viên Quản lý kênh Ecommerce Quốc tế</h4>
+            <div class="job-dept">Ecommerce · TP.HCM</div>
+          </div>
+          <span class="job-badge ft">Full-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Quản lý và phát triển các kênh ecommerce quốc tế (Amazon, Shopee International, TikTok Shop Global).</li>
+              <li>Tối ưu listing, hình ảnh, copy sản phẩm theo từng thị trường.</li>
+              <li>Lên kế hoạch chiến dịch quốc tế, phối hợp với KOC/influencer ngoài Việt Nam.</li>
+              <li>Báo cáo hiệu quả & doanh thu định kỳ.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>3+ năm kinh nghiệm vận hành ecommerce, ưu tiên có kinh nghiệm thị trường quốc tế.</li>
+              <li>Tiếng Anh giao tiếp tốt (TOEIC 750+ hoặc tương đương).</li>
+              <li>Hiểu thuật toán & xu hướng các nền tảng global.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — Chuyên viên Quản lý kênh Ecommerce Quốc tế" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">04</span>
+          <div class="job-title-wrap">
+            <h4>Chuyên viên Quản lý — Booking KOC/KOL</h4>
+            <div class="job-dept">Marketing · TP.HCM</div>
+          </div>
+          <span class="job-badge ft">Full-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Tìm kiếm, đàm phán và quản lý hợp tác với mạng lưới KOC/KOL.</li>
+              <li>Lên kế hoạch chiến dịch booking, brief sản phẩm, theo dõi tiến độ deliverable.</li>
+              <li>Đo lường hiệu quả từng KOC/KOL và tối ưu portfolio hợp tác.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>2+ năm kinh nghiệm booking/influencer marketing trong ngành beauty hoặc lifestyle.</li>
+              <li>Mạng lưới KOC/KOL rộng, kỹ năng đàm phán tốt.</li>
+              <li>Kỹ năng phân tích số liệu hiệu quả chiến dịch.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — Chuyên viên Quản lý Booking KOC KOL" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">05</span>
+          <div class="job-title-wrap">
+            <h4>Chuyên viên Kênh phân phối</h4>
+            <div class="job-dept">Sales · TP.HCM</div>
+          </div>
+          <span class="job-badge ft">Full-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Phát triển hệ thống đại lý, nhà phân phối offline cho SHeGAN trên toàn quốc.</li>
+              <li>Quản lý quan hệ đại lý, hỗ trợ trưng bày, đào tạo sản phẩm.</li>
+              <li>Đàm phán hợp đồng, theo dõi doanh số từng kênh.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>2+ năm kinh nghiệm phát triển kênh phân phối FMCG / beauty.</li>
+              <li>Có sẵn network đại lý là một lợi thế lớn.</li>
+              <li>Sẵn sàng đi công tác tỉnh.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — Chuyên viên Kênh phân phối" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">06</span>
+          <div class="job-title-wrap">
+            <h4>CTV Kho Part-time</h4>
+            <div class="job-dept">Vận hành · TP.HCM</div>
+          </div>
+          <span class="job-badge pt">Part-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Hỗ trợ pick-pack đơn hàng, kiểm kê tồn kho, đóng gói cẩn thận.</li>
+              <li>Sắp xếp kho theo SOP, đảm bảo vệ sinh và an toàn.</li>
+              <li>Phối hợp với team vận chuyển trong giờ cao điểm.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>Có thể làm 4-5 buổi/tuần, ưu tiên ca chiều.</li>
+              <li>Cẩn thận, trách nhiệm, sức khoẻ tốt.</li>
+              <li>Sinh viên hoặc người tìm việc bán thời gian đều OK.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — CTV Kho Part-time" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">07</span>
+          <div class="job-title-wrap">
+            <h4>KOC Affiliate</h4>
+            <div class="job-dept">Marketing · Remote</div>
+          </div>
+          <span class="job-badge">Affiliate</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Tham gia chương trình affiliate của SHeGAN — chia sẻ trải nghiệm sản phẩm trên social.</li>
+              <li>Nhận hoa hồng theo doanh số đơn hàng từ link/code riêng.</li>
+              <li>Được brand hỗ trợ media kit, brief sản phẩm và quà tặng dùng thử.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>Có kênh social (TikTok, Instagram, YouTube) hoạt động đều đặn.</li>
+              <li>Yêu thích & sẵn sàng review sản phẩm beauty thuần chay.</li>
+              <li>Không yêu cầu số follower tối thiểu.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — KOC Affiliate" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <button class="job-head" type="button" aria-expanded="false">
+          <span class="job-num">08</span>
+          <div class="job-title-wrap">
+            <h4>KOC Full-time</h4>
+            <div class="job-dept">Marketing · TP.HCM</div>
+          </div>
+          <span class="job-badge ft">Full-time</span>
+          <span class="job-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="job-body">
+          <div class="job-body-inner">
+            <div class="job-section-title">Mô tả công việc</div>
+            <ul>
+              <li>Trở thành gương mặt KOC chính thức của SHeGAN — sản xuất content review, livestream định kỳ.</li>
+              <li>Đại diện brand tại các sự kiện, fanmeet, ra mắt sản phẩm.</li>
+              <li>Phối hợp với team marketing xây dựng nội dung dài hạn.</li>
+            </ul>
+            <div class="job-section-title">Yêu cầu</div>
+            <ul>
+              <li>Có ngoại hình ưa nhìn, kỹ năng giao tiếp & livestream tốt.</li>
+              <li>Có kinh nghiệm review beauty hoặc background tương tự là ưu tiên.</li>
+              <li>Cam kết hợp tác lâu dài, làm việc full-time tại văn phòng SHeGAN.</li>
+            </ul>
+            <a href="mailto:thuyvan.contact@gmail.com?subject=Ứng tuyển — KOC Full-time" class="job-apply">
+              Ứng tuyển ngay
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="footer-wrap">
+  <footer class="site-footer">
+    <div class="footer-top footer-top-3col">
+      <div class="footer-brand-col">
+        <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-img on-dark" style="max-width: 220px; margin-bottom: 16px;">
+        <div class="footer-name">Phạm Hồng Thúy Vân</div>
+        <p>Á hậu Quốc tế 2015 · Nhà sáng lập SHEGAN · Nghệ sĩ và diễn giả truyền cảm hứng. Yêu bản thân, đẹp cộng đồng.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Pháp nhân</div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Liên hệ</div>
+        <ul>
+          <li><a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a></li>
+          <li><a href="tel:0898879193">089 887 91 93</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SHEGAN · Phạm Hồng Thúy Vân. All rights reserved.</div>
+      <div class="footer-copy">Designed with care · Made in Vietnam</div>
+    </div>
+  </footer>
+</div>
+
+<div class="apply-modal" id="applyModal" aria-hidden="true" role="dialog" aria-labelledby="applyModalTitle" aria-modal="true">
+  <div class="apply-modal__backdrop" data-close></div>
+  <div class="apply-modal__dialog" role="document">
+    <button class="apply-modal__close" type="button" data-close aria-label="Đóng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+    <div class="apply-modal__head">
+      <div class="apply-modal__tagline">Ứng tuyển</div>
+      <h3 id="applyModalTitle" class="apply-modal__title">Gửi hồ sơ ứng tuyển</h3>
+      <p class="apply-modal__position">Vị trí: <em id="applyModalPosition"></em></p>
+    </div>
+    <form class="apply-form" id="applyForm" novalidate>
+      <input type="hidden" name="position" id="applyPosition">
+      <div class="apply-field">
+        <label for="applyName">Họ và tên <span aria-hidden="true">*</span></label>
+        <input type="text" id="applyName" name="name" required autocomplete="name" placeholder="Nguyễn Văn A">
+      </div>
+      <div class="apply-field">
+        <label for="applyPhone">Số điện thoại <span aria-hidden="true">*</span></label>
+        <input type="tel" id="applyPhone" name="phone" required autocomplete="tel" placeholder="0xxx xxx xxx" pattern="[0-9+\s\-]{8,}">
+      </div>
+      <div class="apply-field">
+        <label for="applyEmail">Email <span aria-hidden="true">*</span></label>
+        <input type="email" id="applyEmail" name="email" required autocomplete="email" placeholder="email@example.com">
+      </div>
+      <div class="apply-field">
+        <label for="applyCv">Link CV <span aria-hidden="true">*</span></label>
+        <input type="url" id="applyCv" name="cv" required placeholder="https://drive.google.com/...">
+        <span class="apply-field__hint">Google Drive, Dropbox, OneDrive… (đặt quyền xem cho mọi người có link).</span>
+      </div>
+      <button type="submit" class="apply-form__submit">
+        Gửi hồ sơ
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Sticky header shadow
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
+    if (!hdr) return;
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      var shouldBeScrolled = window.scrollY > 20;
+      if (shouldBeScrolled !== scrolled) {
+        scrolled = shouldBeScrolled;
+        hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
+      }
+    }, { passive: true });
+  })();
+
+  // Mobile hamburger toggle
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var btn = hdr ? hdr.querySelector('.header-hamburger') : null;
+    if (!hdr || !btn) return;
+    btn.addEventListener('click', function() {
+      hdr.classList.toggle('menu-open');
+    });
+    hdr.querySelectorAll('.header-menu a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hdr.classList.remove('menu-open');
+      });
+    });
+  })();
+
+  // Job accordion — toggle expand/collapse
+  document.querySelectorAll('.job-head').forEach(function(head) {
+    head.addEventListener('click', function() {
+      var item = head.closest('.job-item');
+      var open = item.classList.toggle('open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Apply modal — open on "Ứng tuyển ngay" click, submit via mailto
+  (function() {
+    var modal = document.getElementById('applyModal');
+    if (!modal) return;
+    var posLabel = document.getElementById('applyModalPosition');
+    var posInput = document.getElementById('applyPosition');
+    var form = document.getElementById('applyForm');
+    var lastTrigger = null;
+
+    function openModal(position) {
+      posLabel.textContent = position || '';
+      posInput.value = position || '';
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('apply-modal-open');
+      setTimeout(function() {
+        var first = form.querySelector('input:not([type=hidden])');
+        if (first) first.focus();
+      }, 60);
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('apply-modal-open');
+      form.reset();
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    document.querySelectorAll('.job-apply').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var label = (link.textContent || '').trim();
+        if (label.indexOf('Ứng tuyển') !== 0) return; // affiliate giữ nguyên flow mailto
+        e.preventDefault();
+        lastTrigger = link;
+        var item = link.closest('.job-item');
+        var titleEl = item ? item.querySelector('h4') : null;
+        openModal(titleEl ? titleEl.textContent.trim() : '');
+      });
+    });
+
+    modal.querySelectorAll('[data-close]').forEach(function(el) {
+      el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      var data = new FormData(form);
+      var position = data.get('position') || '';
+      var subject = 'Ứng tuyển — ' + position;
+      var email = data.get('email');
+      var body =
+        'Vị trí: ' + position + '\n' +
+        'Họ và tên: ' + data.get('name') + '\n' +
+        'Số điện thoại: ' + data.get('phone') + '\n' +
+        (email ? 'Email: ' + email + '\n' : '') +
+        'Link CV: ' + data.get('cv') + '\n';
+      var mailto = 'mailto:thuyvan.contact@gmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+      window.location.href = mailto;
+      closeModal();
+    });
+  })();
+</script>
+
+</body>
+</html>

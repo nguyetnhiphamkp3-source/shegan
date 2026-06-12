@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Learning — Phạm Hồng Thúy Vân</title>
+<meta name="description" content="E-Learning của SHEGAN — sắp ra mắt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============ HEADER — TRANSPARENT OVERLAY ON DARK COMING-SOON ============ */
+  body { padding-top: 0; }
+  .site-header {
+    position: relative; width: 100%;
+    background: transparent;
+    z-index: 1000;
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--porcelain);
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(15, 10, 7, 0.5);
+  }
+  .brand-logo {
+    height: 22px; width: auto; display: block;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(15, 10, 7, 0.5));
+  }
+  .header-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: linear-gradient(180deg, rgba(15, 10, 7, 0.38) 0%, rgba(15, 10, 7, 0.15) 65%, transparent 100%);
+    border-bottom: none;
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    gap: 24px;
+  }
+  .header-nav.scrolled {
+    background: rgba(253, 249, 242, 0.92);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(236, 217, 184, 0.5);
+    box-shadow: 0 4px 20px rgba(139, 111, 63, 0.1);
+  }
+  .header-nav.scrolled .brand-name { color: var(--warm-brown); text-shadow: none; }
+  .header-nav.scrolled .brand-logo { filter: none; }
+  .header-nav.scrolled .header-menu a { color: var(--text-soft); text-shadow: none; }
+  .header-nav.scrolled .header-icon-btn { color: var(--warm-brown); filter: none; }
+  .header-nav.scrolled .header-icon-btn:hover {
+    background: var(--mesh-gold-subtle);
+    border-color: var(--border); color: var(--antique-gold);
+  }
+  .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .header-right { display: flex; align-items: center; gap: 32px; }
+  .header-menu { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+  .header-menu a {
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 700;
+    color: var(--porcelain); text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 4px 0; position: relative;
+    transition: color 0.3s ease;
+    text-shadow: 0 1px 10px rgba(15, 10, 7, 0.5);
+  }
+  .header-menu a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--mesh-gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .header-menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .header-menu a.active { color: var(--antique-gold); }
+  .header-menu a.active::after { transform: scaleX(1); }
+  .header-utils { display: flex; align-items: center; gap: 8px; }
+  .header-icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--porcelain);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 6px rgba(15, 10, 7, 0.5));
+  }
+  .header-icon-btn:hover {
+    background: rgba(253, 249, 242, 0.15);
+    border-color: rgba(253, 249, 242, 0.3); color: var(--porcelain);
+  }
+  .header-icon-btn svg { width: 16px; height: 16px; }
+
+  main { padding-top: 0; }
+
+  /* ============ COMING SOON ============ */
+  .coming-soon {
+    position: relative;
+    min-height: 100vh;
+    padding: 160px 40px 100px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    background:
+      linear-gradient(180deg, rgba(15,10,7,0.65) 0%, rgba(31,22,16,0.85) 100%),
+      url('assets/beauty/img-9108.webp') center 30% / cover no-repeat;
+    color: var(--pearl);
+    overflow: hidden;
+  }
+  .coming-soon::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(at 25% 35%, rgba(201,168,118,0.18), transparent 55%),
+      radial-gradient(at 75% 65%, rgba(139,111,63,0.18), transparent 55%);
+    pointer-events: none;
+  }
+  .coming-soon > * { position: relative; z-index: 1; }
+  .coming-soon-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--champagne);
+    margin-bottom: 32px;
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .coming-soon-eyebrow::before,
+  .coming-soon-eyebrow::after {
+    content: '';
+    width: 36px; height: 1px;
+    background: var(--mesh-gold);
+    opacity: 0.6;
+  }
+  .coming-soon h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--pearl);
+    font-weight: 500;
+    margin: 0 0 20px;
+    text-shadow: 0 2px 24px rgba(15,10,7,0.5);
+  }
+  .coming-soon h1 em {
+    font-style: italic; font-weight: 400;
+    color: var(--heading);
+  }
+  .coming-soon-sub {
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.75;
+    color: rgba(244,228,193,0.85);
+    max-width: 760px;
+    margin: 24px auto 40px;
+    text-wrap: balance;
+  }
+  .coming-soon-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--deep-brown);
+    background: var(--btn-gradient);
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .coming-soon-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(139, 111, 63, 0.35);
+  }
+
+  .footer-wrap { width: 100%; padding: 0; }
+  .footer-wrap .site-footer { border-radius: 0; }
+  .footer-top.footer-top-3col { grid-template-columns: 1.4fr 1fr 1fr; gap: 64px; }
+
+  @media (max-width: 900px) {
+    .header-nav { padding: 10px 20px; gap: 12px; flex-wrap: wrap; }
+    .header-right { gap: 16px; }
+    .header-menu { gap: 16px; flex-wrap: wrap; }
+    .header-menu a { font-size: 13px; font-weight: 700; }
+    .coming-soon { padding: 120px 24px 80px; }
+    .coming-soon-eyebrow::before, .coming-soon-eyebrow::after { width: 24px; }
+    .footer-top.footer-top-3col { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
+  <nav class="header-nav" id="siteHeader">
+    <a href="index.html" class="header-brand">
+      <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
+      <span class="brand-name">Pham Hong Thuy Van</span>
+    </a>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li><a href="about.html">Về Thuý Vân</a></li>
+        <li class="has-dropdown">
+          <a href="music.html" class="active">Sản Phẩm
+            <svg class="dropdown-caret" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M6 8 0 0h12z"/></svg>
+          </a>
+          <ul class="header-dropdown">
+            <li><a href="music.html">Âm Nhạc</a></li>
+            <li><a href="shegan.html">SHeGAN</a></li>
+            <li><a href="elearning.html" class="active">E-Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">Tin Tức</a></li>
+        <li><a href="careers.html">Việc Làm</a></li>
+      </ul>
+    </div>
+      <button class="header-hamburger" type="button" aria-label="Mở menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="coming-soon">
+    <h1>Coming <em>Soon</em></h1>
+    <p class="coming-soon-sub">
+      Nâng tầm tư duy cùng SHeGAN Academy. Thúy Vân và đội ngũ đang chuẩn bị những bước cuối cùng cho sự ra mắt của một hệ sinh thái giáo dục toàn diện.
+    </p>
+    <a href="mailto:thuyvan.contact@gmail.com?subject=Đăng ký nhận thông báo E-Learning" class="coming-soon-cta">
+      Nhận thông báo ra mắt
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+</main>
+
+<div class="footer-wrap">
+  <footer class="site-footer">
+    <div class="footer-top footer-top-3col">
+      <div class="footer-brand-col">
+        <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-img on-dark" style="max-width: 220px; margin-bottom: 16px;">
+        <div class="footer-name">Phạm Hồng Thúy Vân</div>
+        <p>Á hậu Quốc tế 2015 · Nhà sáng lập SHEGAN · Nghệ sĩ và diễn giả truyền cảm hứng. Yêu bản thân, đẹp cộng đồng.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Pháp nhân</div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Liên hệ</div>
+        <ul>
+          <li><a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a></li>
+          <li><a href="tel:0898879193">089 887 91 93</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SHEGAN · Phạm Hồng Thúy Vân. All rights reserved.</div>
+      <div class="footer-copy">Designed with care · Made in Vietnam</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
+    if (!hdr) return;
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      var shouldBeScrolled = window.scrollY > 20;
+      if (shouldBeScrolled !== scrolled) {
+        scrolled = shouldBeScrolled;
+        hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
+      }
+    }, { passive: true });
+  })();
+
+  // Mobile hamburger toggle
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var btn = hdr ? hdr.querySelector('.header-hamburger') : null;
+    if (!hdr || !btn) return;
+    btn.addEventListener('click', function() {
+      hdr.classList.toggle('menu-open');
+    });
+    hdr.querySelectorAll('.header-menu a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hdr.classList.remove('menu-open');
+      });
+    });
+  })();
+
+</script>
+
+</body>
+</html>

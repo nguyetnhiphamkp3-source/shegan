@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Âm Nhạc — Phạm Hồng Thúy Vân</title>
+<meta name="description" content="Âm Nhạc — Các ca khúc đã phát hành của Phạm Hồng Thúy Vân. Nghe ngay trên trang.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============ HEADER — GLASS CREAM (over light section 1) ============ */
+  body { padding-top: 0; }
+  .site-header {
+    position: relative;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-brown);
+    white-space: nowrap;
+  }
+  .brand-logo { height: 22px; width: auto; display: block; }
+
+  .header-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(253, 249, 242, 0.92);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid rgba(236, 217, 184, 0.5);
+    transition: box-shadow 0.3s ease;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    gap: 24px;
+  }
+  .header-nav.scrolled { box-shadow: 0 4px 20px rgba(139, 111, 63, 0.1); }
+  .header-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .header-right { display: flex; align-items: center; gap: 32px; }
+  .header-menu { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+  .header-menu a {
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 700;
+    color: var(--text-soft); text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 4px 0; position: relative;
+    transition: color 0.3s ease;
+  }
+  .header-menu a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--mesh-gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .header-menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .header-menu a.active { color: var(--antique-gold); }
+  .header-menu a.active::after { transform: scaleX(1); }
+  .header-utils { display: flex; align-items: center; gap: 8px; }
+  .header-icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 50%; color: var(--warm-brown);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .header-icon-btn:hover {
+    background: var(--mesh-gold-subtle);
+    border-color: var(--border); color: var(--antique-gold);
+  }
+  .header-icon-btn svg { width: 16px; height: 16px; }
+
+  main { padding-top: 0; }
+
+  /* Bỏ section-num "— 01 / Âm Nhạc —" trên cả desktop + mobile */
+  .section-header .section-num { display: none !important; }
+
+  /* Music section as section 1 — extra top padding to clear fixed header */
+  section.home-section {
+    padding: 140px 40px 120px;
+    max-width: 1320px; margin: 0 auto;
+    position: relative;
+  }
+
+  /* ============ MUSIC CARDS — Spotify-style (same as home) ============ */
+  .home-section .music-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 28px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .home-section .music-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    min-height: 0 !important;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: none !important;
+  }
+  .home-section .music-card[data-yt]:focus-visible {
+    outline: 2px solid var(--antique-gold);
+    outline-offset: 6px;
+    border-radius: 12px;
+  }
+  .home-section .music-cover-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    margin-bottom: 18px;
+    transition: transform 0.35s ease;
+  }
+  .home-section .music-card:hover .music-cover-wrap { transform: translateY(-4px); }
+  .home-section .music-cover {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    border-radius: 12px;
+  }
+  .home-section .music-play {
+    position: absolute;
+    right: 16px; bottom: 16px;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--mesh-gold);
+    color: var(--deep-brown);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 24px rgba(168, 137, 87, 0.55);
+    cursor: pointer;
+    pointer-events: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .home-section .music-card:hover .music-play {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px rgba(168, 137, 87, 0.65);
+  }
+  .home-section .music-play svg {
+    width: 20px; height: 20px; fill: currentColor; margin-left: 2px;
+  }
+  .home-section .music-play .icon-pause { display: none; margin-left: 0; }
+  .home-section .music-card.playing .music-play .icon-play { display: none; }
+  .home-section .music-card.playing .music-play .icon-pause { display: block; }
+  .home-section .music-card.playing .music-play {
+    transform: translateY(-4px);
+    animation: musicPlayPulse 2.2s ease-in-out infinite;
+  }
+  .home-section .music-card.playing .music-title { color: var(--royal-gold); }
+  @keyframes musicPlayPulse {
+    0%, 100% {
+      box-shadow: 0 10px 22px rgba(168, 137, 87, 0.6),
+                  0 0 0 0 rgba(168, 137, 87, 0.5);
+    }
+    50% {
+      box-shadow: 0 14px 28px rgba(168, 137, 87, 0.75),
+                  0 0 0 10px rgba(168, 137, 87, 0);
+    }
+  }
+  .home-section .music-title {
+    font-family: var(--font-heading);
+    font-size: 19px; font-weight: 500;
+    color: var(--deep-brown);
+    line-height: 1.25;
+    margin: 0 0 4px;
+    transition: color 0.3s ease;
+  }
+  .home-section .music-meta {
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 500;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 900px) {
+    .home-section .music-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
+    .home-section .music-play { width: 52px; height: 52px; right: 12px; bottom: 12px; }
+    .home-section .music-title { font-size: 15px; }
+    .home-section .music-meta { font-size: 13px; font-weight: 600; }
+  }
+  /* Keep 2 columns even on very narrow phones */
+
+  /* Hide the iframe visually but keep it rendered so audio plays */
+  .music-player {
+    position: absolute;
+    width: 1px; height: 1px;
+    left: -9999px; top: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+
+  /* Footer (3-col synced with other pages) */
+  .footer-wrap { width: 100%; padding: 0; }
+  .footer-wrap .site-footer { border-radius: 0; }
+  .footer-top.footer-top-3col {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 64px;
+  }
+
+  @media (max-width: 900px) {
+    .header-nav { padding: 10px 20px; gap: 12px; flex-wrap: wrap; }
+    .header-right { gap: 16px; }
+    .header-menu { gap: 16px; flex-wrap: wrap; }
+    .header-menu a { font-size: 13px; font-weight: 700; }
+    section.home-section { padding: 100px 24px 60px; }
+    .footer-top.footer-top-3col { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-blur-layer" id="headerBlur"></div>
+  <nav class="header-nav" id="siteHeader">
+    <a href="index.html" class="header-brand">
+      <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-logo">
+      <span class="brand-name">Pham Hong Thuy Van</span>
+    </a>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li><a href="about.html">Về Thuý Vân</a></li>
+        <li class="has-dropdown">
+          <a href="music.html" class="active">Sản Phẩm
+            <svg class="dropdown-caret" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M6 8 0 0h12z"/></svg>
+          </a>
+          <ul class="header-dropdown">
+            <li><a href="music.html" class="active">Âm Nhạc</a></li>
+            <li><a href="shegan.html">SHeGAN</a></li>
+            <li><a href="elearning.html">E-Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="news.html">Tin Tức</a></li>
+        <li><a href="careers.html">Việc Làm</a></li>
+      </ul>
+    </div>
+      <button class="header-hamburger" type="button" aria-label="Mở menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ SECTION 1 — MUSIC ============ -->
+  <section class="home-section" id="music">
+    <div class="section-header">
+      <span class="section-num">— 01 / Âm Nhạc —</span>
+      <h2 class="section-title">Các ca khúc <em>mới nhất</em></h2>
+      <div class="divider-ornament"><span></span></div>
+      <p class="section-desc">Hành trình âm nhạc của Thúy Vân qua những bản phối đã phát hành. Click để lắng nghe trực tuyến!</p>
+    </div>
+
+    <div class="music-grid">
+      <div class="music-card" data-yt="gtoiMOfbnVk" role="button" tabindex="0" aria-label="Nghe bài Em Vẫn Tin Đó Là Anh">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/em-van-tin-do-la-anh.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Em Vẫn Tin Đó Là Anh</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2026</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="EUVNz9dcaoA" role="button" tabindex="0" aria-label="Nghe bài Tiến Lên Việt Nam">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/tien-len-viet-nam.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Tiến Lên Việt Nam!</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2025</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="GyrsOmvOipI" role="button" tabindex="0" aria-label="Nghe bài Bài Hát Chưa Đặt Tên Số 1">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/bai-hat-chua-dat-ten-so-1.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Bài Hát Chưa Đặt Tên Số 1</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2024</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="vggFAD9AO3U" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Lưu Ly">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-luu-ly.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Trái Tim Lưu Ly</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="hX4aJ3mgTn8" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yếu Đuối">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-duoi.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Trái Tim Yếu Đuối</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="t0EgveIEtyU" role="button" tabindex="0" aria-label="Nghe bài Trái Tim Yêu Thương">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/trai-tim-yeu-thuong.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Trái Tim Yêu Thương</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2022</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="O7ulohxXrnc" role="button" tabindex="0" aria-label="Nghe bài Con Sẽ Không Về">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/con-se-khong-ve.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">Con Sẽ Không Về</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2021</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+      <div class="music-card" data-yt="JGPESk9IoUg" role="button" tabindex="0" aria-label="Nghe bài My Vietnam">
+        <div class="music-cover-wrap">
+          <div class="music-cover" style="background-image: url('assets/music/my-vietnam.webp');"></div>
+          <button class="music-play" type="button" tabindex="-1" aria-hidden="true">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <h4 class="music-title">My Vietnam</h4>
+        <p class="music-meta">Phạm Hồng Thúy Vân · 2015</p>
+        <div class="music-player" aria-hidden="true"></div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<div class="footer-wrap">
+  <footer class="site-footer">
+    <div class="footer-top footer-top-3col">
+      <div class="footer-brand-col">
+        <img src="assets/logo-enm.webp" alt="SHEGAN ENM" class="brand-img on-dark" style="max-width: 220px; margin-bottom: 16px;">
+        <div class="footer-name">Phạm Hồng Thúy Vân</div>
+        <p>Á hậu Quốc tế 2015 · Nhà sáng lập SHEGAN · Nghệ sĩ và diễn giả truyền cảm hứng. Yêu bản thân, đẹp cộng đồng.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Pháp nhân</div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Giải trí &amp; Truyền thông SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+        <div class="footer-company">
+          <div class="footer-company-name">Cty TNHH Thương mại &amp; Dịch vụ SHEGAN</div>
+          <div class="footer-company-addr">146C7 Nguyễn Văn Hưởng,<br>An Khánh, TP HCM</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Liên hệ</div>
+        <ul>
+          <li><a href="mailto:thuyvan.contact@gmail.com">thuyvan.contact@gmail.com</a></li>
+          <li><a href="tel:0898879193">089 887 91 93</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v2.9h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@phamhong.thuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-4.8-4.8V0h-3.3v15.5a3 3 0 1 1-3-3v-3.4a6.3 6.3 0 1 0 6.3 6.3V8.8a8 8 0 0 0 4.8 1.6V7.1c-.2-.2-.4-.5 0-.8z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/phamhongthuyvan/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1.1.4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.3.1-1.7.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM19.8 4.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          </a>
+          <a href="https://www.threads.com/@phamhongthuyvan" target="_blank" rel="noopener" class="social-btn" aria-label="Threads">
+            <span class="social-img" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 SHEGAN · Phạm Hồng Thúy Vân. All rights reserved.</div>
+      <div class="footer-copy">Designed with care · Made in Vietnam</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Sticky header shadow on scroll
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var blur = document.getElementById('headerBlur');
+    if (!hdr) return;
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      var shouldBeScrolled = window.scrollY > 20;
+      if (shouldBeScrolled !== scrolled) {
+        scrolled = shouldBeScrolled;
+        hdr.classList.toggle('scrolled', scrolled);
+        if (blur) blur.classList.toggle('scrolled', scrolled);
+      }
+    }, { passive: true });
+  })();
+
+  // Smooth scroll for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var hdr = document.getElementById('siteHeader');
+      var hdrH = hdr ? hdr.offsetHeight : 0;
+      window.scrollTo({
+        top: target.offsetTop - hdrH - 8,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Music cards — lazy-load YouTube IFrame API on first play, keep card visual as facade
+  (function() {
+    var apiLoaded = false;
+    var apiReady = false;
+    var apiCallbacks = [];
+    var players = {};
+
+    function loadApi(cb) {
+      if (apiReady) { cb(); return; }
+      apiCallbacks.push(cb);
+      if (apiLoaded) return;
+      apiLoaded = true;
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+
+    var prevHandler = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function() {
+      apiReady = true;
+      apiCallbacks.forEach(function(cb) { cb(); });
+      apiCallbacks = [];
+      if (typeof prevHandler === 'function') prevHandler();
+    };
+
+    function stopOthers(exceptId) {
+      Object.keys(players).forEach(function(id) {
+        if (id === exceptId) return;
+        var p = players[id];
+        if (p && typeof p.stopVideo === 'function') {
+          try { p.stopVideo(); } catch (e) {}
+        }
+        var c = document.querySelector('[data-card-id="' + id + '"]');
+        if (c) c.classList.remove('playing');
+      });
+    }
+
+    function toggle(card) {
+      var videoId = card.getAttribute('data-yt');
+      if (!videoId) return;
+      var cardId = card.getAttribute('data-card-id');
+      if (!cardId) {
+        cardId = 'ytc-' + Math.random().toString(36).slice(2, 9);
+        card.setAttribute('data-card-id', cardId);
+      }
+
+      if (players[cardId]) {
+        var state = -1;
+        try { state = players[cardId].getPlayerState(); } catch (e) {}
+        if (state === 1) {
+          players[cardId].pauseVideo();
+          card.classList.remove('playing');
+        } else {
+          stopOthers(cardId);
+          players[cardId].playVideo();
+          card.classList.add('playing');
+        }
+        return;
+      }
+
+      stopOthers(cardId);
+      card.classList.add('playing');
+      var mount = card.querySelector('.music-player');
+      if (!mount) return;
+      var mountId = 'ytm-' + cardId;
+      mount.innerHTML = '<div id="' + mountId + '"></div>';
+
+      loadApi(function() {
+        players[cardId] = new YT.Player(mountId, {
+          videoId: videoId,
+          playerVars: {
+            autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1
+          },
+          events: {
+            onReady: function(e) { e.target.playVideo(); },
+            onStateChange: function(e) {
+              if (e.data === 0) card.classList.remove('playing');
+              else if (e.data === 2) card.classList.remove('playing');
+              else if (e.data === 1) card.classList.add('playing');
+            }
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll('.music-card[data-yt]').forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('.music-player')) return;
+        toggle(card);
+      });
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle(card);
+        }
+      });
+    });
+  })();
+
+  // Mobile hamburger toggle
+  (function() {
+    var hdr = document.getElementById('siteHeader');
+    var btn = hdr ? hdr.querySelector('.header-hamburger') : null;
+    if (!hdr || !btn) return;
+    btn.addEventListener('click', function() {
+      hdr.classList.toggle('menu-open');
+    });
+    hdr.querySelectorAll('.header-menu a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hdr.classList.remove('menu-open');
+      });
+    });
+  })();
+
+</script>
+
+</body>
+</html>
