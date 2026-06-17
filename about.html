@@ -178,6 +178,67 @@
     margin: 0;
     text-align: left;
   }
+  /* Hero bio — collapsible */
+  .about-hero-bio {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 540px;
+    margin: 0;
+    text-align: justify;
+    hyphens: auto;
+    box-sizing: border-box;
+  }
+  .about-hero-bio p { margin: 0 0 10px; }
+  .about-hero-bio p:last-child { margin-bottom: 0; }
+  .about-hero-bio ul { list-style: none; padding: 0; margin: 8px 0 12px; }
+  .about-hero-bio li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 8px;
+  }
+  .about-hero-bio li::before {
+    content: '·';
+    position: absolute; left: 0; top: -2px;
+    color: var(--royal-gold);
+    font-weight: 700; font-size: 20px;
+  }
+  .about-hero-bio strong { color: var(--heading); font-weight: 600; }
+  .about-hero-bio:not(.expanded) {
+    max-height: calc(1.7em * 3);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  }
+  .about-hero-bio.expanded {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 0;
+    border-radius: 14px;
+    background: rgba(255, 245, 248, 0.72);
+    backdrop-filter: blur(8px) saturate(1.1);
+    -webkit-backdrop-filter: blur(8px) saturate(1.1);
+    box-shadow: 0 4px 18px rgba(168, 137, 87, 0.08);
+    transition: background 0.3s ease;
+  }
+  .about-bio-toggle {
+    background: none; border: 0; padding: 0;
+    margin: 14px 0 28px;
+    color: var(--royal-gold);
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: color 0.25s ease;
+  }
+  .about-bio-toggle svg { transition: transform 0.3s ease; }
+  .about-bio-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .about-bio-toggle:hover { color: var(--antique-gold); }
 
   .about-section {
     padding: 60px 40px;
@@ -436,7 +497,8 @@
     #mission .ti-split,
     #vision .ti-split,
     #education .ti-split,
-    #founder .ti-split {
+    #founder .ti-split,
+    #family .ti-split {
       grid-template-columns: 1fr;
       min-height: 0;
     }
@@ -444,14 +506,16 @@
     #mission .ti-content,
     #vision .ti-content,
     #education .ti-content,
-    #founder .ti-content {
+    #founder .ti-content,
+    #family .ti-content {
       padding: 56px 28px;
     }
     #intro .ti-image,
     #mission .ti-image,
     #vision .ti-image,
     #education .ti-image,
-    #founder .ti-image {
+    #founder .ti-image,
+    #family .ti-image {
       min-height: 60vw;
       aspect-ratio: 4 / 5;
     }
@@ -688,9 +752,20 @@
     <div class="about-hero-content">
       <h1>Phạm Hồng <em>Thuý Vân</em></h1>
       <p class="about-hero-roles">Nghệ sĩ <span>·</span> Doanh nhân <span>·</span> Học giả</p>
-      <p class="about-hero-sub">
-        Á hậu Quốc tế 2015, nhà sáng lập SHEGAN — người phụ nữ hiện đại dung hoà nhan sắc, trí tuệ và bản lĩnh trên hành trình kiến tạo lối sống ý thức cho cộng đồng.
-      </p>
+      <div class="about-hero-bio" id="aboutHeroBio">
+        <p>Chào bạn, mình là Phạm Hồng Thúy Vân.</p>
+        <p>Vân tin rằng mỗi người phụ nữ đều sở hữu những bản sắc riêng biệt và một tiềm năng tuyệt vời luôn xứng đáng được nhìn thấy, thấu hiểu và phát triển. Vì thế, Vân mong muốn có thể truyền cảm hứng và đồng hành cùng mọi người trên hành trình Sống ý thức (Conscious Living) giúp khai phóng trọn vẹn Thân — Tâm — Trí, thông qua 3 vai trò cốt lõi:</p>
+        <ul>
+          <li><strong>Thân</strong> — Nhà sáng lập thương hiệu mỹ phẩm thuần chay SHEGAN: Tiên phong trong việc kiến tạo các giá trị kinh doanh minh bạch, trung thực và bền vững để nuôi dưỡng cơ thể từ những điều lành tính nhất.</li>
+          <li><strong>Trí</strong> — Người nghiên cứu về Thương hiệu cá nhân, Social Commerce và Văn hóa học: Ứng dụng tư duy hệ thống từ nền tảng Văn hóa học để quan sát dòng chảy xã hội, phân tích sâu sắc thị hiếu thị trường và đóng gói tri thức bản sắc.</li>
+          <li><strong>Tâm</strong> — Nghệ sĩ độc lập: Kết nối sâu sắc và chạm đến cảm xúc của khán giả qua các vai trò Ca - Nhạc sĩ, Giám khảo, Diễn giả và MC chuyên nghiệp bằng chính tần số mộc mạc từ tâm hồn.</li>
+        </ul>
+        <p>Hy vọng không gian này sẽ là nơi bạn tìm thấy nguồn cảm hứng để đánh thức tiềm năng và định vị bản sắc độc bản của chính mình.</p>
+      </div>
+      <button type="button" class="about-bio-toggle" id="aboutHeroBioToggle" aria-expanded="false" aria-controls="aboutHeroBio">
+        <span class="bio-toggle-text">Đọc tiếp</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
     </div>
   </section>
 
@@ -792,7 +867,23 @@
     </div>
   </section>
 
-  <!-- ============ 7. GIẢI THƯỞNG & THÀNH TỰU (Portrait + Categorized) ============ -->
+  <!-- ============ 7. GIA ĐÌNH ============ -->
+  <section class="about-section" id="family">
+    <div class="ti-split reverse">
+      <div class="ti-content">
+        <div class="ti-eyebrow"><span class="ti-dot"></span> Về Thuý Vân</div>
+        <h3>Gia đình</h3>
+        <p>
+          Năm 2020, Thúy Vân kết hôn với Nhật Vũ – một doanh nhân và nhà đầu tư trong lĩnh vực điện ảnh và bất động sản. Anh là cháu ngoại của Giáo sư Hoàng Minh Giám – một nhà ngoại giao nổi tiếng và từng là đại biểu Quốc hội từ khóa I đến khóa VII. Sau đó, hai người có một con trai tên là Nhật Tôn. Gia đình của Thúy Vân được hàng triệu khán giả theo dõi và trở thành hình mẫu gia đình văn hóa tiêu biểu tại Việt Nam.
+        </p>
+      </div>
+      <div class="ti-image v2 has-photo" style="background: url('assets/beauty/gia-dinh.jpg') center center / cover;">
+        <div class="ti-image-caption">"Gia đình hạnh phúc của Thúy Vân"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. GIẢI THƯỞNG & THÀNH TỰU (Portrait + Categorized) ============ -->
   <section class="about-section" id="awards">
     <div class="about-section-head">
       <div class="about-hero-eyebrow">Ghi Nhận</div>
@@ -988,6 +1079,18 @@
       a.addEventListener('click', function() {
         hdr.classList.remove('menu-open');
       });
+    });
+  })();
+
+  // Hero bio expand/collapse
+  (function() {
+    var bio = document.getElementById('aboutHeroBio');
+    var btn = document.getElementById('aboutHeroBioToggle');
+    if (!bio || !btn) return;
+    btn.addEventListener('click', function() {
+      var expanded = bio.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btn.querySelector('.bio-toggle-text').textContent = expanded ? 'Rút gọn' : 'Đọc tiếp';
     });
   })();
 
